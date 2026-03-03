@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <!-- الخطوط والأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/style-main.css">
 </head>
+
 <body>
     <!-- الهيدر مع الغلاف -->
     <header class="hero">
@@ -17,11 +19,14 @@
                 <h1>🍽️ مطبخ الجزائر</h1>
             </div>
             <ul class="nav-links">
-                <li><a href="index.html">الرئيسية</a></li>
-                <li><a href="category.html?cat=algerian">طبخ جزائري</a></li>
-                <li><a href="category.html?cat=modern">عصري</a></li>
-                <li><a href="category.html?cat=diet">حميات</a></li>
-                <li><a href="category.html?cat=desserts">حلويات</a></li>
+                <li><a href="index.html" class="active">الرئيسية</a></li>
+                <li><a href="pages/cuisine-dz.html">طبخ جزائري</a></li>
+                <li><a href="pages/salads.html">السلطات</a></li>
+                <li><a href="pages/diet.html">حميات غذائية</a></li>
+                <li><a href="pages/traditional-desserts.html">حلويات تقليدية</a></li>
+                <li><a href="pages/modern-desserts.html">حلويات عصرية</a></li>
+                <li><a href="pages/about.html">من نحن</a></li>
+                <li><a href="pages/contact.html">اتصل بنا</a></li>
             </ul>
             <div class="burger">
                 <i class="fas fa-bars"></i>
@@ -39,7 +44,7 @@
         <section class="section">
             <div class="section-header">
                 <h2>الطبخ الجزائري <span class="badge-section">تقليدي & عصري</span></h2>
-                <a href="category.html?cat=algerian" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="pages/cuisine-dz.html" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="cards-grid">
                 <!-- بطاقة 1 -->
@@ -105,11 +110,52 @@
             </div>
         </section>
 
+        <!-- قسم السلاطة -->
+        <section class="section">
+            <div class="section-header">
+                <h2>سلطات طازجة<span class="badge-section">تقليدي & عصري & دايت</span></h2>
+                <a href="pages/salads.html" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="cards-grid">
+                <!-- سلطة تقليدية 1 -->
+                <div class="card" data-category="traditional">
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200" alt="سلطة مشوية">
+                        <span class="card-badge salad-traditional">تقليدية</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>سلطة مشوية (شاكشوكة)</h3>
+                        <p class="ingredients">مقادير: فلفل مشوي، طماطم مشوية، ثوم، زيت زيتون، تونة (اختياري)...</p>
+                        <div class="card-footer">
+                            <span class="date"><i class="far fa-calendar-alt"></i> 2024-03-21</span>
+                            <span class="author">نشر: خالتي جميلة</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- سلطة تقليدية 2 -->
+                <div class="card" data-category="traditional">
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200" alt="سلطة زيتون">
+                        <span class="card-badge salad-traditional">تقليدية</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>سلطة الزيتون والهريسة</h3>
+                        <p class="ingredients">مقادير: زيتون أسود، هريسة، ثوم، كزبرة، زيت زيتون، ليمون...</p>
+                        <div class="card-footer">
+                            <span class="date"><i class="far fa-calendar-alt"></i> 2024-03-19</span>
+                            <span class="author">نشر: نادية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- قسم الحميات (تنحيف وتسمين) -->
         <section class="section">
             <div class="section-header">
                 <h2>الحميات الغذائية <span class="badge-section">تنحيف & تسمين</span></h2>
-                <a href="category.html?cat=diet" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="pages/diet.html" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
             </div>
             <div class="cards-grid">
                 <!-- بطاقة تنحيف -->
@@ -146,17 +192,56 @@
             </div>
         </section>
 
-        <!-- قسم الحلويات -->
+        <!-- حلويات تقليدية -->
         <section class="section">
             <div class="section-header">
-                <h2>الحلويات <span class="badge-section">تقليدية & عصرية</span></h2>
-                <a href="category.html?cat=desserts" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <h2>حلويات تقليدية<span class="badge-section">تقليدية</span></h2>
+                <a href="pages/traditional-desserts.html" class="view-all">عرض الكل <i
+                        class="fas fa-arrow-left"></i></a>
             </div>
             <div class="cards-grid">
                 <div class="card">
                     <div class="card-image">
                         <img src="https://via.placeholder.com/300x200" alt="حلوى">
                         <span class="card-badge">تقليدية</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>بقلوة جزائرية</h3>
+                        <p class="ingredients">لوز، عسل، ورق بسطيلة، زبدة...</p>
+                        <div class="card-footer">
+                            <span class="date"><i class="far fa-calendar-alt"></i> 2024-03-14</span>
+                            <span class="author">نشر: حليمة</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200" alt="حلوى">
+                        <span class="card-badge">تقليدية</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>تشيز كيك بالتمر</h3>
+                        <p class="ingredients">تمر، جبن كريمي، بسكويت، قشطة...</p>
+                        <div class="card-footer">
+                            <span class="date"><i class="far fa-calendar-alt"></i> 2024-03-07</span>
+                            <span class="author">نشر: أمل</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- حلويات العصرية -->
+        <section class="section">
+            <div class="section-header">
+                <h2>حلويات تقليدية<span class="badge-section">عصرية</span></h2>
+                <a href="pages/modern-desserts.html" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="https://via.placeholder.com/300x200" alt="حلوى">
+                        <span class="card-badge">عصرية</span>
                     </div>
                     <div class="card-content">
                         <h3>بقلوة جزائرية</h3>
@@ -196,9 +281,9 @@
                 <h3>روابط سريعة</h3>
                 <ul>
                     <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="#">من نحن</a></li>
-                    <li><a href="#">اتصل بنا</a></li>
-                    <li><a href="#">سياسة الخصوصية</a></li>
+                    <li><a href="pages/about.html">من نحن</a></li>
+                    <li><a href="pages/contact.html">اتصل بنا</a></li>
+                    <li><a href="pages/privacy.html">سياسة الخصوصية</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -216,6 +301,7 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="javascript/js-main.js"></script>
 </body>
+
 </html>
