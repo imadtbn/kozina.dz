@@ -1,0 +1,15 @@
+/* ألوان شارات السلطات */
+.salad-traditional {
+    background-color: #8e44ad;  /* بنفسجي للتقليدي */
+}
+
+.salad-modern {
+    background-color: #3498db;  /* أزرق للعصري */
+}
+
+/* يمكن استخدام الأنماط الموجودة مسبقاً لشارات الدايت */
+.card-badge.diet-loss {
+    background-color: #27ae60;
+}
+
+/* تحديث أزرار التصفية إذا لزم الأمر (موجودة سابقاً) */

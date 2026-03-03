@@ -1,0 +1,42 @@
+/* أزرار التصفية */
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0 0;
+    padding: 0 5%;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background-color: white;
+    border: 2px solid #e67e22;
+    color: #e67e22;
+    padding: 0.6rem 1.8rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Tajawal', sans-serif;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: #e67e22;
+    color: white;
+}
+
+/* تحديث ألوان شارات الحميات (موجودة سابقاً ولكن للتأكيد) */
+.card-badge.diet-loss {
+    background-color: #27ae60;
+}
+
+.card-badge.diet-gain {
+    background-color: #c0392b;
+}
+
+/* ضبط هوامش القسم */
+.section {
+    padding-top: 1rem;
+}
