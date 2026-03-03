@@ -40,6 +40,19 @@
 
     <!-- الأقسام الرئيسية -->
     <main>
+
+
+
+        <!-- قسم الطبخ الجزائري -->
+        <div class="cards-grid" id="algerian-cards"></div>
+
+        <!-- قسم الحميات -->
+        <div class="cards-grid" id="diet-cards"></div>
+
+        <!-- قسم الحلويات -->
+        <div class="cards-grid" id="desserts-cards"></div>
+
+
         <!-- قسم الطبخ الجزائري -->
         <section class="section">
             <div class="section-header">
@@ -302,6 +315,39 @@
     </footer>
 
     <script src="javascript/js-main.js"></script>
+    <script src="javascript/cardRenderer.js"></script>
+    <script>
+            fetch('recipes.json')
+        .then(response => response.json())
+        .then(data => {
+            const recipes = data.recipes;
+            
+            // عرض وصفات الطبخ الجزائري (آخر 4)
+            const algerianContainer = document.querySelector('#algerian-cards');
+            const algerianRecipes = recipes.filter(r => r.category.includes('algerian')).slice(0, 4);
+            algerianContainer.innerHTML = algerianRecipes.map(renderCard).join('');
+
+            // عرض وصفات الحميات (آخر 4)
+            const dietContainer = document.querySelector('#diet-cards');
+            const dietRecipes = recipes.filter(r => r.category.includes('diet')).slice(0, 4);
+            dietContainer.innerHTML = dietRecipes.map(renderCard).join('');
+
+            // عرض وصفات الحلويات (آخر 4)
+            const dessertsContainer = document.querySelector('#desserts-cards');
+            const dessertsRecipes = recipes.filter(r => r.category.includes('dessert')).slice(0, 4);
+            dessertsContainer.innerHTML = dessertsRecipes.map(renderCard).join('');
+
+            // عرض السلطات (اختياري)
+            const saladsContainer = document.querySelector('#salads-cards');
+            if (saladsContainer) {
+                const saladsRecipes = recipes.filter(r => r.category.includes('salad')).slice(0, 4);
+                saladsContainer.innerHTML = saladsRecipes.map(renderCard).join('');
+            }
+        })
+        .catch(error => console.error('خطأ في تحميل البيانات:', error));
+
+    </script>
+
 </body>
 
 </html>
