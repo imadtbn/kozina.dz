@@ -125,7 +125,11 @@
                         <img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%; border-radius:8px;">
                         <p><strong>الوصف:</strong> ${recipe.description}</p>
                         <p><strong>المقادير:</strong></p>
-                        <ul>${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}</ul>
+                        <p>${recipe.ingredients.map(ing => `<li>${ing}</li>`).join('')}</p>
+                        <p><strong>طريقة التحضير :</strong></p>
+
+                        <p>${recipe.method.map(ing => `<li>${ing}</li>`).join('')}</p>
+
                         ${videoHtml}
                         <div class="author-info">
                             <p><strong>نشر:</strong> ${recipe.author}</p>
