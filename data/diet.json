@@ -1,0 +1,80 @@
+[
+    {
+      "id": 1,
+      "title": "سلطة الكينوا بالخضار",
+      "category": "loss",
+      "badge": "تنحيف",
+      "image": "https://via.placeholder.com/300x200",
+      "ingredients": ["كينوا", "خيار", "طماطم", "فلفل ألوان", "ليمون", "زيت زيتون"],
+      "description": "وصفة سلطة الكينوا المنعشة والمثالية للرجيم. غنية بالألياف والبروتين.",
+      "video": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      "author": "أخصائية تغذية",
+      "authorLink": "https://instagram.com/nutri.alia",
+      "date": "2024-03-20"
+    },
+    {
+      "id": 2,
+      "title": "شوربة عدس بالخضار",
+      "category": "loss",
+      "badge": "تنحيف",
+      "image": "https://via.placeholder.com/300x200",
+      "ingredients": ["عدس", "جزر", "كرفس", "بصل", "ثوم", "كمون"],
+      "description": "شوربة عدس شهية ومشبعة، منخفضة السعرات ومناسبة للدايت.",
+      "video": "",
+      "author": "أمل",
+      "authorLink": "https://facebook.com/amel.chef",
+      "date": "2024-03-18"
+    },
+    {
+      "id": 3,
+      "title": "صدر دجاج مشوي بالخضار",
+      "category": "loss",
+      "badge": "تنحيف",
+      "image": "https://via.placeholder.com/300x200",
+      "ingredients": ["صدر دجاج", "بروكلي", "جزر", "بهارات", "زيت زيتون"],
+      "description": "وجبة متكاملة غنية بالبروتين وقليلة الدهون.",
+      "video": "",
+      "author": "كريم",
+      "authorLink": "https://twitter.com/karim_fit",
+      "date": "2024-03-15"
+    },
+    {
+      "id": 4,
+      "title": "مخبوز باللحم والجبن",
+      "category": "gain",
+      "badge": "تسمين",
+      "image": "https://via.placeholder.com/300x200",
+      "ingredients": ["لحم مفروم", "جبن مبشور", "عجينة", "كريمة", "بيض"],
+      "description": "وصفة غنية بالسعرات الحرارية لمن يعانون من النحافة.",
+      "video": "https://www.youtube.com/embed/3JZ_D3ELwOQ",
+      "author": "محمد",
+      "authorLink": "https://instagram.com/mohamed_kitchen",
+      "date": "2024-03-17"
+    },
+    {
+      "id": 5,
+      "title": "بطاطا مهروسة بالزبدة والكريمة",
+      "category": "gain",
+      "badge": "تسمين",
+      "image": "https://via.placeholder.com/300x200",
+      "ingredients": ["بطاطس", "زبدة", "كريمة طبخ", "جبن", "ملح"],
+      "description": "بطاطا مهروسة كريمية غنية بالدهون الصحية.",
+      "video": "",
+      "author": "سلمى",
+      "authorLink": "https://facebook.com/salma.recipes",
+      "date": "2024-03-12"
+    },
+    {
+      "id": 6,
+      "title": "كوكتيل التمر والمكسرات",
+      "category": "gain",
+      "badge": "تسمين",
+      "image": "https://via.placeholder.com/300x200",
+      "ingredients": ["تمر", "حليب كامل الدسم", "موز", "زبدة فول سوداني", "عسل"],
+      "description": "مشروب عالي السعرات الحرارية لزيادة الوزن بطريقة صحية.",
+      "video": "",
+      "author": "أخصائي تغذية",
+      "authorLink": "https://instagram.com/dr.nutri",
+      "date": "2024-03-10"
+    }
+  ]
