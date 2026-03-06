@@ -36,6 +36,10 @@
     background-color: #c0392b;
 }
 
+    .card-badge.diet-sportive {
+    background-color: #1461f0;
+}
+
 /* ضبط هوامش القسم */
 .section {
     padding-top: 1rem;
@@ -134,3 +138,4 @@
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
+
