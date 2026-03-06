@@ -49,45 +49,47 @@
 
         <!-- شبكة بطاقات الحميات -->
         <section class="section">
-            <div class="cards-grid" id="diet-cards">
-                <!-- النافذة المنبثقة (Modal) -->
-                <div id="recipeModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <div class="modal-body">
-                            <!-- يتم تعبئة المحتوى ديناميكياً عبر JavaScript -->
-                        </div>
-                    </div>
-                </div>
+            <div class="cards-grid" id="diet-cards"></div>
 
-                <script>
-                    // تحميل بيانات JSON وعرض البطاقات
-                    let recipesData = [];
 
-                    async function loadRecipes() {
-                        try {
-                            const response = await fetch('../data/diet.json'); // تأكد من المسار الصحيح
-                            recipesData = await response.json();
-                            renderCards('all');
-                        } catch (error) {
-                            console.error('خطأ في تحميل البيانات:', error);
-                            // يمكن عرض رسالة للمستخدم
-                        }
-                    }
+            <!-- النافذة المنبثقة (Modal) -->
+<div id="recipeModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-body">
+            <!-- يتم تعبئة المحتوى ديناميكياً عبر JavaScript -->
+        </div>
+    </div>
+</div>
 
-                    function renderCards(filter) {
-                        const container = document.getElementById('diet-cards');
-                        container.innerHTML = ''; // تفريغ الحاوية
+<script>
+    // تحميل بيانات JSON وعرض البطاقات
+    let recipesData = [];
 
-                        const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
+    async function loadRecipes() {
+        try {
+            const response = await fetch('../data/diet.json'); // تأكد من المسار الصحيح
+            recipesData = await response.json();
+            renderCards('all');
+        } catch (error) {
+            console.error('خطأ في تحميل البيانات:', error);
+            // يمكن عرض رسالة للمستخدم
+        }
+    }
 
-                        filtered.forEach(recipe => {
-                            const card = document.createElement('div');
-                            card.className = 'card';
-                            card.dataset.id = recipe.id;
-                            card.dataset.category = recipe.category;
+    function renderCards(filter) {
+        const container = document.getElementById('diet-cards');
+        container.innerHTML = ''; // تفريغ الحاوية
 
-                            card.innerHTML = `
+        const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
+
+        filtered.forEach(recipe => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.id = recipe.id;
+            card.dataset.category = recipe.category;
+
+            card.innerHTML = `
                 <div class="card-image">
                     <img src="${recipe.image}" alt="${recipe.title}">
                     <span class="card-badge diet-${recipe.category}">${recipe.badge}</span>
@@ -102,22 +104,22 @@
                 </div>
             `;
 
-                            // إضافة حدث النقر لفتح النافذة المنبثقة
-                            card.addEventListener('click', () => showModal(recipe));
-                            container.appendChild(card);
-                        });
-                    }
+            // إضافة حدث النقر لفتح النافذة المنبثقة
+            card.addEventListener('click', () => showModal(recipe));
+            container.appendChild(card);
+        });
+    }
 
-                    function showModal(recipe) {
-                        const modal = document.getElementById('recipeModal');
-                        const modalBody = modal.querySelector('.modal-body');
-                        const videoHtml = recipe.video ? `
+    function showModal(recipe) {
+        const modal = document.getElementById('recipeModal');
+        const modalBody = modal.querySelector('.modal-body');
+        const videoHtml = recipe.video ? `
             <div class="video-container">
                 <iframe width="100%" height="315" src="${recipe.video}" frameborder="0" allowfullscreen></iframe>
             </div>
         ` : '';
 
-                        modalBody.innerHTML = `
+        modalBody.innerHTML = `
             <h2>${recipe.title}</h2>
             <img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%; border-radius:8px;">
             <p><strong>الوصف:</strong> ${recipe.description}</p>
@@ -131,135 +133,35 @@
             </div>
         `;
 
-                        modal.style.display = 'block';
-                    }
+        modal.style.display = 'block';
+    }
 
-                    // إغلاق النافذة المنبثقة
-                    document.querySelector('.close-modal').addEventListener('click', () => {
-                        document.getElementById('recipeModal').style.display = 'none';
-                    });
+    // إغلاق النافذة المنبثقة
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        document.getElementById('recipeModal').style.display = 'none';
+    });
 
-                    window.addEventListener('click', (e) => {
-                        if (e.target.classList.contains('modal')) {
-                            e.target.style.display = 'none';
-                        }
-                    });
+    window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+        }
+    });
 
-                    // أزرار التصفية
-                    document.querySelectorAll('.filter-btn').forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                            btn.classList.add('active');
-                            renderCards(btn.dataset.filter);
-                        });
-                    });
+    // أزرار التصفية
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCards(btn.dataset.filter);
+        });
+    });
 
-                    // بدء التحميل
-                    loadRecipes();
-                </script>
+    // بدء التحميل
+    loadRecipes();
+</script>
 
-                <style>
-                    /* تنسيقات النافذة المنبثقة */
-                    .modal {
-                        display: none;
-                        position: fixed;
-                        z-index: 1000;
-                        left: 0;
-                        top: 0;
-                        width: 100%;
-                        height: 100%;
-                        background-color: rgba(0, 0, 0, 0.6);
-                        overflow-y: auto;
-                    }
 
-                    .modal-content {
-                        background-color: #fff;
-                        margin: 5% auto;
-                        padding: 20px;
-                        border-radius: 15px;
-                        width: 90%;
-                        max-width: 600px;
-                        position: relative;
-                        animation: modalFadeIn 0.3s;
-                    }
 
-                    @keyframes modalFadeIn {
-                        from {
-                            opacity: 0;
-                            transform: translateY(-30px);
-                        }
-
-                        to {
-                            opacity: 1;
-                            transform: translateY(0);
-                        }
-                    }
-
-                    .close-modal {
-                        position: absolute;
-                        left: 20px;
-                        top: 15px;
-                        font-size: 28px;
-                        font-weight: bold;
-                        color: #888;
-                        cursor: pointer;
-                        transition: color 0.2s;
-                    }
-
-                    .close-modal:hover {
-                        color: #000;
-                    }
-
-                    .modal-body {
-                        margin-top: 20px;
-                    }
-
-                    .modal-body img {
-                        margin-bottom: 15px;
-                    }
-
-                    .modal-body ul {
-                        list-style-type: disc;
-                        padding-right: 20px;
-                        margin-bottom: 15px;
-                    }
-
-                    .author-info {
-                        border-top: 1px solid #eee;
-                        padding-top: 15px;
-                        margin-top: 15px;
-                    }
-
-                    .video-container {
-                        margin: 15px 0;
-                        position: relative;
-                        padding-bottom: 56.25%;
-                        /* نسبة 16:9 */
-                        height: 0;
-                        overflow: hidden;
-                    }
-
-                    .video-container iframe {
-                        position: absolute;
-                        top: 0;
-                        left: 0;
-                        width: 100%;
-                        height: 100%;
-                        border-radius: 8px;
-                    }
-
-                    /* تحسين استجابة البطاقات */
-                    .card {
-                        cursor: pointer;
-                        transition: transform 0.2s, box-shadow 0.2s;
-                    }
-
-                    .card:hover {
-                        transform: translateY(-5px);
-                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-                    }
-                </style>
-            </div>
         </section>
     </main>
 
@@ -294,8 +196,8 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="../data/diet.json"></script>
+    <script src="../javascript/js-main.js"></script>
+
 
     <script>
         // فلترة البطاقات حسب الفئة (تنحيف / تسمين)
