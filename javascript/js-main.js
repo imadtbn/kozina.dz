@@ -12,3 +12,28 @@ document.querySelectorAll('.nav-links a').forEach(link => {
         navLinks.classList.remove('active');
     });
 });
+
+
+
+
+
+const searchInput = document.getElementById("recipeSearch");
+
+searchInput.addEventListener("keyup", function () {
+
+    const searchValue = this.value.toLowerCase();
+
+    const filtered = saladsData.filter(recipe => {
+
+        return (
+            recipe.name.toLowerCase().includes(searchValue) ||
+            recipe.publisher.toLowerCase().includes(searchValue) ||
+            recipe.category.toLowerCase().includes(searchValue) ||
+            recipe.ingredients.join(" ").toLowerCase().includes(searchValue)
+        );
+
+    });
+
+    renderCards(filtered);
+
+});
