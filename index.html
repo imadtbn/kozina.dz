@@ -72,7 +72,8 @@
         <section class="section">
             <div class="section-header">
                 <h2>حلويات تقليدية <span class="badge-section">تقليدية</span></h2>
-                <a href="pages/traditional-desserts.html" class="view-all">عرض الكل <i class="fas fa-arrow-left"></i></a>
+                <a href="pages/traditional-desserts.html" class="view-all">عرض الكل <i
+                        class="fas fa-arrow-left"></i></a>
             </div>
             <div class="cards-grid" id="traditional-desserts-cards"></div>
         </section>
@@ -86,7 +87,6 @@
             <div class="cards-grid" id="modern-desserts-cards"></div>
         </section>
     </main>
-
 
     <!-- الفوتر -->
     <footer>
@@ -119,50 +119,124 @@
         </div>
     </footer>
 
-    <script src="javascript/js-main.js"></script>
-    <script src="javascript/algerien.js"></script>
-    <script src="javascript/diet.js"></script>
-    <script src="javascript/modern-desserts.js"></script>
-    <script src="javascript/traditional-desserts.js"></script>
-    <script src="javascript/salads.js"></script>
-
     <script>
-        fetch('recipes.json')
-            .then(response => response.json())
-            .then(data => {
-                const recipes = data.recipes;
+        // js-main.js
 
-                // عرض وصفات الطبخ الجزائري (آخر 4)
-                const algerianContainer = document.querySelector('#algerian-cards');
-                const algerianRecipes = recipes.filter(r => r.category.includes('algerian')).slice(0, 3);
-                algerianContainer.innerHTML = algerianRecipes.map(renderCard).join('');
+        // دالة لعرض البطاقات في حاوية محددة
+        function renderCards(containerId, recipes) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = '';
 
-                // عرض وصفات الحميات (آخر 4)
-                const dietContainer = document.querySelector('#diet-cards');
-                const dietRecipes = recipes.filter(r => r.category.includes('diet')).slice(0, 3);
-                dietContainer.innerHTML = dietRecipes.map(renderCard).join('');
+            recipes.forEach(recipe => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.dataset.id = recipe.id;
 
-                // عرض وصفات الحلويات (آخر 4)
-                const dessertsContainer = document.querySelector('#desserts-cards');
-                const dessertsRecipes = recipes.filter(r => r.category.includes('dessert')).slice(0, 3);
-                dessertsContainer.innerHTML = dessertsRecipes.map(renderCard).join('');
+                // تحضير نص المكونات (مصفوفة أو نص)
+                const ingredientsText = Array.isArray(recipe.ingredients)
+                    ? recipe.ingredients.join('، ')
+                    : recipe.ingredients;
 
-                // عرض السلطات (اختياري)
-                const saladsContainer = document.querySelector('#salads-cards');
-                if (saladsContainer) {
-                    const saladsRecipes = recipes.filter(r => r.category.includes('salad')).slice(0, 3);
-                    saladsContainer.innerHTML = saladsRecipes.map(renderCard).join('');
+                card.innerHTML = `
+            <div class="card-image">
+                <img src="${recipe.image}" alt="${recipe.title}" loading="lazy">
+                <span class="card-badge">${recipe.badge || ''}</span>
+            </div>
+            <div class="card-content">
+                <h3>${recipe.title}</h3>
+                <p class="ingredients">مقادير: ${ingredientsText}</p>
+                <div class="card-footer">
+                    <span class="date"><i class="far fa-calendar-alt"></i> ${recipe.date}</span>
+                    <span class="author">نشر: ${recipe.author}</span>
+                </div>
+            </div>
+        `;
+
+                card.addEventListener('click', () => showModal(recipe));
+                container.appendChild(card);
+            });
+        }
+
+        // دالة عرض النافذة المنبثقة
+        function showModal(recipe) {
+            const modal = document.getElementById('recipeModal');
+            const modalBody = modal.querySelector('.modal-body');
+
+            // تحضير محتوى الفيديو إذا وجد
+            const videoHtml = recipe.video ? `
+        <div class="video-container">
+            <iframe width="100%" height="280" src="${recipe.video}" frameborder="0" allowfullscreen></iframe>
+        </div>
+    ` : '';
+
+            // التأكد من أن المكونات نصية
+            const ingredientsText = Array.isArray(recipe.ingredients)
+                ? recipe.ingredients.join('، ')
+                : recipe.ingredients;
+
+            modalBody.innerHTML = `
+        <h2>${recipe.title}</h2>
+        <img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%; border-radius:8px;">
+        <p><strong>الوصف:</strong> ${recipe.description || ''}</p>
+        <p><strong>المقادير:</strong> ${ingredientsText}</p>
+        <p><strong>طريقة التحضير:</strong> ${recipe.method || ''}</p>
+        ${videoHtml}
+        <div class="author-info">
+            <p><strong>نشر:</strong> ${recipe.author || ''}</p>
+            <p><strong>تاريخ النشر:</strong> ${recipe.date || ''}</p>
+            ${recipe.authorLink ? `<p><strong>رابط التواصل:</strong> <a href="${recipe.authorLink}" target="_blank">${recipe.authorLink}</a></p>` : ''}
+        </div>
+    `;
+
+            modal.style.display = 'block';
+        }
+
+        // إغلاق النافذة المنبثقة
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('recipeModal');
+            const closeBtn = document.querySelector('.close-modal');
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+            }
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
                 }
+            });
+        });
 
-                // عرض traditional (اختياري)
-                const traditionalContainer = document.querySelector('#traditional-cards');
-                if (traditionalContainer) {
-                    const traditionalRecipes = recipes.filter(r => r.category.includes('salad')).slice(0, 3);
-                    traditionalContainer.innerHTML = traditionalRecipes.map(renderCard).join('');
-                }
-            })
-            .catch(error => console.error('خطأ في تحميل البيانات:', error));
+        // تحميل البيانات من ملفات JSON
+        async function loadAllData() {
+            try {
+                // تحميل كل ملف JSON على حدة
+                const [algerien, salads, diet, traditional, modern] = await Promise.all([
+                    fetch('data/algerien.json').then(res => res.json()),
+                    fetch('data/salads.json').then(res => res.json()),
+                    fetch('data/diet.json').then(res => res.json()),
+                    fetch('data/traditional-desserts.json').then(res => res.json()),
+                    fetch('data/modern-desserts.json').then(res => res.json())
+                ]);
 
+                // عرض البطاقات في كل حاوية (يكفي عرض أول 4 وصفات)
+                renderCards('algerien-cards', algerien.slice(0, 4));
+                renderCards('salads-cards', salads.slice(0, 4));
+                renderCards('diet-cards', diet.slice(0, 4));
+                renderCards('traditional-desserts-cards', traditional.slice(0, 4));
+                renderCards('modern-desserts-cards', modern.slice(0, 4));
+
+            } catch (error) {
+                console.error('خطأ في تحميل البيانات:', error);
+                // يمكن إظهار رسالة للمستخدم
+            }
+        }
+
+        // بدء التحميل عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', loadAllData);
     </script>
 
 </body>
