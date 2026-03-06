@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطبخ الجزائر - السلطات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../style/style-main.css">
+    <link rel="stylesheet" href="../style/salads.css">
+    <link rel="stylesheet" href="../style/diet.css">
+
+</head>
+
+<body>
+    <!-- هيدر فرعي -->
+    <header class="sub-header">
+        <nav class="navbar">
+            <div class="logo">
+                <h1>🍽️ مطبخ الجزائر</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="algerien.html">طبخ جزائري</a></li>
+                <li><a href="salads.html" class="active">السلطات</a></li>
+                <li><a href="diet.html">حميات غذائية</a></li>
+                <li><a href="traditional-desserts.html">حلويات تقليدية</a></li>
+                <li><a href="modern-desserts.html">حلويات عصرية</a></li>
+                <li><a href="about.html">من نحن</a></li>
+                <li><a href="contact.html">اتصل بنا</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+        <div class="page-title">
+            <h2>السلطات</h2>
+            <p>سلطات طازجة وصحية تناسب جميع الأذواق والمناسبات</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- أزرار التصنيف (اختياري) -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="traditional">سلطات تقليدية</button>
+            <button class="filter-btn" data-filter="diet">سلطات دايت</button>
+            <button class="filter-btn" data-filter="modern">سلطات عصرية</button>
+        </div>
+
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input 
+                type="text" 
+                id="recipeSearch"
+                placeholder="ابحث عن وصفة، مكون، أو اسم الناشر..."
+            >
+          </div>
+          
+        <!-- شبكة بطاقات الحميات -->
+        <section class="section">
+            <div class="cards-grid" id="salads-cards"></div>
+
+
+            <!-- النافذة المنبثقة (Modal) -->
+            <div id="recipeModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <div class="modal-body">
+                        <!-- يتم تعبئة المحتوى ديناميكياً عبر JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+    </main>
+
+    <!-- الفوتر -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>مطبخ الجزائر</h3>
+                <p>موقع يقدم أشهى الوصفات الجزائرية التقليدية والعصرية، مع خيارات صحية تلائم جميع الأنظمة الغذائية.</p>
+            </div>
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="../index.html">الرئيسية</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>تواصل معنا</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2024 مطبخ الجزائر. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="../javascript/js-main.js"></script>
+    <script src="../javascript/salads.js"></script>
+
+
+    <script>
+        // فلترة البطاقات
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // تحديث الزر النشط
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filterValue = button.dataset.filter;
+
+                cards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = card.dataset.category === filterValue ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
