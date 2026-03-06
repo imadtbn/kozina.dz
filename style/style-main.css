@@ -309,6 +309,7 @@ footer {
         display: flex;
     }
 
+
     .burger {
         display: block;
     }
@@ -457,78 +458,50 @@ footer {
     white-space: pre-line; /* يحافظ على فواصل الأسطر */
 }
 
-.search-box{
-    max-width:500px;
-    margin:20px auto;
-    position:relative;
+
+/* محرك البحث  */
+
+.top-bar {
+    background-color: #f8f9fa;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9ecef;
 }
 
-.search-box input{
-    width:100%;
-    padding:12px 15px 12px 40px;
-    border-radius:25px;
-    border:1px solid #ddd;
-    font-size:15px;
-    font-family:"Tajawal",sans-serif;
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.search-box i{
-    position:absolute;
-    left:15px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#888;
+.search-container input {
+    padding: 8px 35px 8px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    font-family: 'Tajawal', sans-serif;
+    width: 250px;
 }
 
+.search-container i {
+    position: absolute;
+    left: 12px;
+    color: #6c757d;
+}
 
+.btn-submit {
+    background-color: #d35400;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
 
-.recipe-search{
-    max-width:700px;
-    margin:25px auto;
-    }
-    
-    .search-bar{
-    position:relative;
-    }
-    
-    #searchInput{
-    width:100%;
-    padding:12px 15px;
-    border-radius:30px;
-    border:1px solid #ddd;
-    font-size:15px;
-    }
-    
-    #suggestions{
-    position:absolute;
-    width:100%;
-    background:#fff;
-    border:1px solid #eee;
-    border-radius:10px;
-    top:45px;
-    display:none;
-    z-index:100;
-    }
-    
-    .suggestion-item{
-    padding:10px;
-    cursor:pointer;
-    }
-    
-    .suggestion-item:hover{
-    background:#f5f5f5;
-    }
-    
-    .search-filters{
-    display:flex;
-    gap:10px;
-    margin-top:10px;
-    }
-    
-    .search-filters input,
-    .search-filters select{
-    flex:1;
-    padding:10px;
-    border-radius:10px;
-    border:1px solid #ddd;
-    }
+.btn-submit:hover {
+    background-color: #e67e22;
+}
