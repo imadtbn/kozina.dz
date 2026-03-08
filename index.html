@@ -60,6 +60,14 @@
 </head>
 
 <body>
+
+    <div id="splash-screen">
+        <img src="icons/logo kozina.webp" alt="كوزينة DZ">
+        <h2>كوزينة DZ</h2>
+        <h2>مرحبا بكم في المطبخ الجزائري</h2>
+        <h2>أشهى الوصفات الجزائرية العصرية والتقليدية</h2>
+    </div>
+
     <!-- الهيدر مع الغلاف -->
     <header class="hero">
         <nav class="navbar">
@@ -104,6 +112,7 @@
             <i class="fas fa-utensils"></i> نشر وصفة
         </a>
     </div>
+
 
     <!-- المحتوى الرئيسي -->
     <main>
@@ -206,6 +215,14 @@
             navigator.serviceWorker.register("/sw.js")
                 .then(() => console.log("Service Worker Registered"));
         }
+    </script>
+
+    <script>
+        window.addEventListener("load", () => {
+            setTimeout(() => {
+                document.getElementById("splash-screen").style.display = "none";
+            }, 1500);
+        });
     </script>
 
     <script src="javascript/js-main.js"></script>
