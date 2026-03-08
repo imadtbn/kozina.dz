@@ -4,7 +4,7 @@
     "title": "الكسكس الجزائري بالخضار",
     "category": "traditional",
     "badge": "تقليدي",
-    "image": "../images/couscous.jpg",
+    "image": "images/couscous.jpg",
     "ingredients": [
       "كسكس (سميد)",
       "لحم غنم",
@@ -105,6 +105,7 @@
     "date": "2025-03-06"
   }
 ]
+
 
 
 
