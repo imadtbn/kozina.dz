@@ -154,3 +154,22 @@ if (burger && navLinks) {
         }
     });
 }
+
+// زر التثبيث APW
+
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+e.preventDefault();
+deferredPrompt = e;
+
+const installBtn = document.getElementById("installBtn");
+installBtn.style.display = "inline-flex";
+
+installBtn.addEventListener("click", () => {
+deferredPrompt.prompt();
+deferredPrompt.userChoice.then(() => {
+deferredPrompt = null;
+});
+});
+});
