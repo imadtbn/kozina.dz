@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="../style/about.css">
     <link rel="stylesheet" href="../style/style-main.css">
 
+
 </head>
 
 <body>
@@ -46,20 +47,21 @@
                 <h1>المطبخ الجزائري</h1>
             </div>
             <ul class="nav-links">
-                <ul class="nav-links">
-                    <li><a href="../index.html">الرئيسية</a></li>
-                    <li><a href="algerien.html">طبخ جزائري</a></li>
-                    <li><a href="salads.html">السلطات</a></li>
-                    <li><a href="diet.html">حميات غذائية</a></li>
-                    <li><a href="traditional-desserts.html">حلويات تقليدية</a></li>
-                    <li><a href="modern-desserts.html">حلويات عصرية</a></li>
-                    <li><a href="about.html" class="active">من نحن</a></li>
-                    <li><a href="contact.html">اتصل بنا</a></li>
-                </ul>
-                <div class="burger">
-                    <i class="fas fa-bars"></i>
-                </div>
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="algerien.html">طبخ جزائري</a></li>
+                <li><a href="salads.html">السلطات</a></li>
+                <li><a href="diet.html">حميات غذائية</a></li>
+                <li><a href="traditional-desserts.html">حلويات تقليدية</a></li>
+                <li><a href="modern-desserts.html">حلويات عصرية</a></li>
+                <li><a href="about.html" class="active">من نحن</a></li>
+                <li><a href="contact.html">اتصل بنا</a></li>
+            </ul>
+
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
         </nav>
+
         <div class="page-title">
             <h2>من نحن</h2>
         </div>
@@ -170,7 +172,58 @@
         </div>
     </footer>
 
-    <script src="../javascript/js-main.js"></script>
+    <script>
+
+        // تحميل البيانات من ملفات JSON
+        async function loadAllData() {
+            try {
+                // تحميل كل ملف JSON على حدة
+                const [algerien, salads, diet, traditional, modern] = await Promise.all([
+                    fetch('data/algerien.json').then(res => res.json()),
+                    fetch('data/salads.json').then(res => res.json()),
+                    fetch('data/diet.json').then(res => res.json()),
+                    fetch('data/traditional-desserts.json').then(res => res.json()),
+                    fetch('data/modern-desserts.json').then(res => res.json())
+                ]);
+
+                // عرض البطاقات في كل حاوية (يكفي عرض أول 3 وصفات)
+                renderCards('algerien-cards', algerien.slice(0, 3));
+                renderCards('salads-cards', salads.slice(0, 3));
+                renderCards('diet-cards', diet.slice(0, 3));
+                renderCards('traditional-desserts-cards', traditional.slice(0, 3));
+                renderCards('modern-desserts-cards', modern.slice(0, 3));
+
+            } catch (error) {
+                console.error('خطأ في تحميل البيانات:', error);
+                // يمكن إظهار رسالة للمستخدم
+            }
+        }
+
+        // بدء التحميل عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', loadAllData);
+
+
+        // قائمة البرجر للشاشات الصغيرة
+        const burger = document.querySelector('.burger');
+        const navLinks = document.querySelector('.nav-links');
+
+        if (burger && navLinks) {
+            burger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                // اختياري: تغيير أيقونة البرجر
+                const icon = burger.querySelector('i');
+                if (icon.classList.contains('fa-bars')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        }
+
+    </script>
+
 </body>
 
 </html>
