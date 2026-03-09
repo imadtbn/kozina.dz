@@ -1,4 +1,3 @@
-
 // js-main.js
 
 // دالة لعرض البطاقات في حاوية محددة
@@ -13,9 +12,9 @@ function renderCards(containerId, recipes) {
         card.dataset.id = recipe.id;
 
         // تحضير نص المكونات (مصفوفة أو نص)
-        const ingredientsText = Array.isArray(recipe.ingredients)
-            ? recipe.ingredients.join('، ')
-            : recipe.ingredients;
+        const ingredientsText = Array.isArray(recipe.ingredients) ?
+            recipe.ingredients.join('، ') :
+            recipe.ingredients;
 
         card.innerHTML = `
             <div class="card-image">
@@ -113,17 +112,17 @@ document.addEventListener('DOMContentLoaded', loadAllData);
 
 // وظيفة البحث المباشر
 // وظيفة البحث المباشر (موسع ليشمل العنوان، المكونات، الناشر، الشارة)
-document.getElementById('search-input').addEventListener('input', function (e) {
+document.getElementById('search-input').addEventListener('input', function(e) {
     const query = e.target.value.trim().toLowerCase();
     const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
         // استخراج النصوص من العناصر المختلفة
-        const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-        const ingredients = card.querySelector('.ingredients')?.textContent.toLowerCase() || '';
-        const author = card.querySelector('.author')?.textContent.toLowerCase() || '';
-        const badge = card.querySelector('.card-badge')?.textContent.toLowerCase() || '';
-        const description = card.querySelector('.description')?.textContent.toLowerCase() || '';
+        const title = card.querySelector('h3') ? .textContent.toLowerCase() || '';
+        const ingredients = card.querySelector('.ingredients') ? .textContent.toLowerCase() || '';
+        const author = card.querySelector('.author') ? .textContent.toLowerCase() || '';
+        const badge = card.querySelector('.card-badge') ? .textContent.toLowerCase() || '';
+        const description = card.querySelector('.description') ? .textContent.toLowerCase() || '';
 
         // دمج جميع النصوص للبحث
         const allText = `${title} ${ingredients} ${author} ${badge}  ${description}`;
@@ -160,44 +159,16 @@ if (burger && navLinks) {
 let deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", (e) => {
-e.preventDefault();
-deferredPrompt = e;
+    e.preventDefault();
+    deferredPrompt = e;
 
-const installBtn = document.getElementById("installBtn");
-installBtn.style.display = "inline-flex";
+    const installBtn = document.getElementById("installBtn");
+    installBtn.style.display = "inline-flex";
 
-installBtn.addEventListener("click", () => {
-deferredPrompt.prompt();
-deferredPrompt.userChoice.then(() => {
-deferredPrompt = null;
-});
-});
-});
-
-
-// بدء التحميل زر المزيد
-
-let visibleRecipes = 4;
-
-function renderRecipes(recipes) {
-
-    const container = document.getElementById("algerien-cards");
-    container.innerHTML = "";
-
-    recipes.slice(0, visibleRecipes).forEach(recipe => {
-        container.innerHTML += createRecipeCard(recipe);
+    installBtn.addEventListener("click", () => {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+            deferredPrompt = null;
+        });
     });
-
-    if (visibleRecipes >= recipes.length) {
-        document.getElementById("loadMoreBtn").style.display = "none";
-    }
-
-}
-
-document.getElementById("loadMoreBtn").addEventListener("click", function() {
-
-    visibleRecipes += 4;
-
-    renderRecipes(allRecipes);
-
 });

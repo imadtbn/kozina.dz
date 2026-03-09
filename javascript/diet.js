@@ -1,31 +1,30 @@
+// تحميل بيانات JSON وعرض البطاقات
+let recipesData = [];
 
-            // تحميل بيانات JSON وعرض البطاقات
-            let recipesData = [];
+async function loadRecipes() {
+    try {
+        const response = await fetch('../data/diet.json'); // تأكد من المسار الصحيح
+        recipesData = await response.json();
+        renderCards('all');
+    } catch (error) {
+        console.error('خطأ في تحميل البيانات:', error);
+        // يمكن عرض رسالة للمستخدم
+    }
+}
 
-            async function loadRecipes() {
-                try {
-                    const response = await fetch('../data/diet.json'); // تأكد من المسار الصحيح
-                    recipesData = await response.json();
-                    renderCards('all');
-                } catch (error) {
-                    console.error('خطأ في تحميل البيانات:', error);
-                    // يمكن عرض رسالة للمستخدم
-                }
-            }
+function renderCards(filter) {
+    const container = document.getElementById('diet-cards');
+    container.innerHTML = ''; // تفريغ الحاوية
 
-            function renderCards(filter) {
-                const container = document.getElementById('diet-cards');
-                container.innerHTML = ''; // تفريغ الحاوية
+    const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
 
-                const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
+    filtered.forEach(recipe => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.id = recipe.id;
+        card.dataset.category = recipe.category;
 
-                filtered.forEach(recipe => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-                    card.dataset.id = recipe.id;
-                    card.dataset.category = recipe.category;
-
-                    card.innerHTML = `
+        card.innerHTML = `
             <div class="card-image">
                 <img src="${recipe.image}" alt="${recipe.title}">
                 <span class="card-badge diet-${recipe.category}">${recipe.badge}</span>
@@ -40,22 +39,22 @@
             </div>
         `;
 
-                    // إضافة حدث النقر لفتح النافذة المنبثقة
-                    card.addEventListener('click', () => showModal(recipe));
-                    container.appendChild(card);
-                });
-            }
+        // إضافة حدث النقر لفتح النافذة المنبثقة
+        card.addEventListener('click', () => showModal(recipe));
+        container.appendChild(card);
+    });
+}
 
-            function showModal(recipe) {
-                const modal = document.getElementById('recipeModal');
-                const modalBody = modal.querySelector('.modal-body');
-                const videoHtml = recipe.video ? `
+function showModal(recipe) {
+    const modal = document.getElementById('recipeModal');
+    const modalBody = modal.querySelector('.modal-body');
+    const videoHtml = recipe.video ? `
         <div class="video-container">
             <iframe width="100%" height="280" src="${recipe.video}" frameborder="0" allowfullscreen></iframe>
         </div>
     ` : '';
 
-                modalBody.innerHTML = `
+    modalBody.innerHTML = `
         <h2>${recipe.title}</h2>
         <img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%; border-radius:8px;">
         <p><strong>الوصف:</strong> ${recipe.description}</p>
@@ -70,28 +69,56 @@
         </div>
     `;
 
-                modal.style.display = 'block';
-            }
+    modal.style.display = 'block';
+}
 
-            // إغلاق النافذة المنبثقة
-            document.querySelector('.close-modal').addEventListener('click', () => {
-                document.getElementById('recipeModal').style.display = 'none';
-            });
+// إغلاق النافذة المنبثقة
+document.querySelector('.close-modal').addEventListener('click', () => {
+    document.getElementById('recipeModal').style.display = 'none';
+});
 
-            window.addEventListener('click', (e) => {
-                if (e.target.classList.contains('modal')) {
-                    e.target.style.display = 'none';
-                }
-            });
+window.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal')) {
+        e.target.style.display = 'none';
+    }
+});
 
-            // أزرار التصفية
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    renderCards(btn.dataset.filter);
-                });
-            });
+// أزرار التصفية
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderCards(btn.dataset.filter);
+    });
+});
 
-            // بدء التحميل
-            loadRecipes();
+// بدء التحميل
+loadRecipes();
+
+
+// بدء التحميل زر المزيد
+
+let visibleRecipes = 4;
+
+function renderRecipes(recipes) {
+
+    const container = document.getElementById("diet-cards");
+    container.innerHTML = "";
+
+    recipes.slice(0, visibleRecipes).forEach(recipe => {
+        container.innerHTML += createRecipeCard(recipe);
+    });
+
+    if (visibleRecipes >= recipes.length) {
+        document.getElementById("loadMoreBtn").style.display = "none";
+    }
+
+}
+
+document.getElementById("loadMoreBtn").addEventListener("click", function() {
+
+    visibleRecipes += 4;
+
+    renderRecipes(allRecipes);
+
+});
