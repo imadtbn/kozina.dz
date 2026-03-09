@@ -155,7 +155,6 @@ if (burger && navLinks) {
 }
 
 // زر التثبيث APW
-
 let deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", (e) => {
