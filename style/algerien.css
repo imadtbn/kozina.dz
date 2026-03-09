@@ -193,3 +193,91 @@
 .card-badge.diet-traditional {
     background-color: #c0392b;
 }
+
+
+
+
+.modal-content{
+    max-width:800px;
+    margin:auto;
+    border-radius:12px;
+    padding:25px;
+}
+
+.recipe-title{
+    text-align:center;
+    font-size:26px;
+    margin-bottom:15px;
+}
+
+.recipe-image img{
+    width:100%;
+    border-radius:10px;
+    margin-bottom:15px;
+}
+
+.recipe-meta{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    font-size:14px;
+    color:#777;
+    margin-bottom:20px;
+}
+
+.recipe-description,
+.recipe-ingredients,
+.recipe-method{
+    margin-bottom:20px;
+}
+
+.recipe-description h3,
+.recipe-ingredients h3,
+.recipe-method h3,
+.recipe-author h3{
+    color:#e67e22;
+    margin-bottom:8px;
+}
+
+.recipe-video iframe{
+    width:100%;
+    height:350px;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+.recipe-author{
+    margin-top:25px;
+    padding-top:15px;
+    border-top:1px solid #eee;
+    text-align:center;
+}
+
+.contact-btn{
+    display:inline-block;
+    margin-top:10px;
+    padding:10px 18px;
+    background:#e67e22;
+    color:white;
+    border-radius:6px;
+    text-decoration:none;
+}
+
+.contact-btn:hover{
+    background:#cf711c;
+}
+
+.modal-content{
+    animation: modalFade 0.3s ease;
+}
+
+@keyframes modalFade{
+    from{
+        transform:scale(0.9);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
