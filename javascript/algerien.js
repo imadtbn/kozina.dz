@@ -3,7 +3,7 @@ let recipesData = [];
 
 async function loadRecipes() {
     try {
-        const response = await fetch('../data/algerien.json'); // تأكد من المسار الصحيح
+        const response = await fetch('data/algerien.json'); // تأكد من المسار الصحيح
         recipesData = await response.json();
         renderCards('all');
     } catch (error) {
@@ -94,4 +94,5 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 
 // بدء التحميل
 loadRecipes();
+
 
