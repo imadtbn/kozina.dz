@@ -54,49 +54,18 @@ function showModal(recipe) {
 </div>
 ` : '';
 
-modalBody.innerHTML = `
-<div class="recipe-modal">
+    modalBody.innerHTML = `
+<h2>${recipe.title}</h2>
+<img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%; border-radius:8px;">
+<p><strong>الوصف:</strong> ${recipe.description}</p>
+<p><strong>المقادير:</strong> ${recipe.ingredients}</p>
+<p><strong>طريقة التحضير:</strong> ${recipe.method}</p>
 
-    <h2 class="recipe-title">${recipe.title}</h2>
-
-    <div class="recipe-image">
-        <img src="${recipe.image}" alt="${recipe.title}">
-    </div>
-
-    <div class="recipe-meta">
-        <span><i class="far fa-calendar"></i> ${recipe.date}</span>
-        <span><i class="fas fa-user"></i> ${recipe.author}</span>
-    </div>
-
-    <div class="recipe-description">
-        <h3>الوصف</h3>
-        <p>${recipe.description}</p>
-    </div>
-
-    <div class="recipe-ingredients">
-        <h3>المقادير</h3>
-        <p>${recipe.ingredients}</p>
-    </div>
-
-    <div class="recipe-method">
-        <h3>طريقة التحضير</h3>
-        <p>${recipe.method}</p>
-    </div>
-
-    ${recipe.video ? `
-    <div class="recipe-video">
-        <iframe src="${recipe.video}" allowfullscreen></iframe>
-    </div>
-    ` : ''}
-
-    <div class="recipe-author">
-        <h3>معلومات الناشر</h3>
-        <p>الناشر: ${recipe.author}</p>
-        <a href="${recipe.authorLink}" target="_blank" class="contact-btn">
-            <i class="fas fa-link"></i> رابط التواصل
-        </a>
-    </div>
-
+${videoHtml}
+<div class="author-info">
+<p><strong>نشر:</strong> ${recipe.author}</p>
+<p><strong>تاريخ النشر:</strong> ${recipe.date}</p>
+<p><strong>رابط التواصل:</strong> <a href="${recipe.authorLink}" target="_blank">${recipe.authorLink}</a></p>
 </div>
 `;
 
