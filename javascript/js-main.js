@@ -1,6 +1,4 @@
-
 // js-main.js
-
 // دالة لعرض البطاقات في حاوية محددة
 function renderCards(containerId, recipes) {
     const container = document.getElementById(containerId);
