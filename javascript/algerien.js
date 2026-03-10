@@ -1,30 +1,30 @@
     // تحميل بيانات JSON وعرض البطاقات
-let recipesData = [];
+    let recipesData = [];
 
-async function loadRecipes() {
-try {
-    const response = await fetch('../data/algerien.json'); // تأكد من المسار الصحيح
-    recipesData = await response.json();
-    renderCards('all');
-} catch (error) {
-    console.error('خطأ في تحميل البيانات:', error);
-    // يمكن عرض رسالة للمستخدم
-}
-}
+    async function loadRecipes() {
+        try {
+            const response = await fetch('../data/algerien.json'); // تأكد من المسار الصحيح
+            recipesData = await response.json();
+            renderCards('all');
+        } catch (error) {
+            console.error('خطأ في تحميل البيانات:', error);
+            // يمكن عرض رسالة للمستخدم
+        }
+    }
 
-function renderCards(filter) {
-const container = document.getElementById('algerien-cards');
-container.innerHTML = ''; // تفريغ الحاوية
+    function renderCards(filter) {
+        const container = document.getElementById('algerien-cards');
+        container.innerHTML = ''; // تفريغ الحاوية
 
-const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
+        const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
 
-filtered.forEach(recipe => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.dataset.id = recipe.id;
-    card.dataset.category = recipe.category;
+        filtered.forEach(recipe => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.id = recipe.id;
+            card.dataset.category = recipe.category;
 
-    card.innerHTML = `
+            card.innerHTML = `
         <div class="card-image">
             <img src="${recipe.image}" alt="${recipe.title}">
             <span class="card-badge algerien-${recipe.category}">${recipe.badge}</span>
@@ -39,22 +39,22 @@ filtered.forEach(recipe => {
         </div>
     `;
 
-    // إضافة حدث النقر لفتح النافذة المنبثقة
-    card.addEventListener('click', () => showModal(recipe));
-    container.appendChild(card);
-});
-}
+            // إضافة حدث النقر لفتح النافذة المنبثقة
+            card.addEventListener('click', () => showModal(recipe));
+            container.appendChild(card);
+        });
+    }
 
-function showModal(recipe) {
-const modal = document.getElementById('recipeModal');
-const modalBody = modal.querySelector('.modal-body');
-const videoHtml = recipe.video ? `
+    function showModal(recipe) {
+        const modal = document.getElementById('recipeModal');
+        const modalBody = modal.querySelector('.modal-body');
+        const videoHtml = recipe.video ? `
     <div class="video-container">
         <iframe width="100%" height="280" src="${recipe.video}" frameborder="0" allowfullscreen></iframe>
     </div>
 ` : '';
 
-modalBody.innerHTML = `
+        modalBody.innerHTML = `
     <h2>${recipe.title}</h2>
     <img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%; border-radius:8px;">
     <p><strong>الوصف:</strong> ${recipe.description}</p>
@@ -69,74 +69,28 @@ modalBody.innerHTML = `
     </div>
 `;
 
-modal.style.display = 'block';
-}
-
-// إغلاق النافذة المنبثقة
-document.querySelector('.close-modal').addEventListener('click', () => {
-document.getElementById('recipeModal').style.display = 'none';
-});
-
-window.addEventListener('click', (e) => {
-if (e.target.classList.contains('modal')) {
-    e.target.style.display = 'none';
-}
-});
-
-// أزرار التصفية
-document.querySelectorAll('.filter-btn').forEach(btn => {
-btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderCards(btn.dataset.filter);
-});
-});
-
-
-// ========== وظيفة البحث المباشر ==========
-document.getElementById('search-input').addEventListener('input', function (e) {
-const query = e.target.value.trim().toLowerCase();
-const cards = document.querySelectorAll('.card');
-
-cards.forEach(card => {
-    const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-    const ingredients = card.querySelector('.ingredients')?.textContent.toLowerCase() || '';
-    const author = card.querySelector('.author')?.textContent.toLowerCase() || '';
-    const badge = card.querySelector('.card-badge')?.textContent.toLowerCase() || '';
-    // description غير موجود في البطاقات، يمكن تركه أو إزالته
-    const allText = `${title} ${ingredients} ${author} ${badge}`;
-
-    card.style.display = allText.includes(query) ? 'block' : 'none';
-});
-});
-
-// ========== قائمة البرجر للشاشات الصغيرة ==========
-const burger = document.querySelector('.burger');
-const navLinks = document.querySelector('.nav-links');
-
-if (burger && navLinks) {
-burger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-    const icon = burger.querySelector('i');
-    if (icon.classList.contains('fa-bars')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-    } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+        modal.style.display = 'block';
     }
-});
 
-// إغلاق القائمة عند النقر على أي رابط
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-        const icon = burger.querySelector('i');
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+    // إغلاق النافذة المنبثقة
+    document.querySelector('.close-modal').addEventListener('click', () => {
+        document.getElementById('recipeModal').style.display = 'none';
     });
-});
-}
 
-// بدء التحميل
-loadRecipes();
+    window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+
+    // أزرار التصفية
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderCards(btn.dataset.filter);
+        });
+    });
+
+    // بدء التحميل
+    loadRecipes();
