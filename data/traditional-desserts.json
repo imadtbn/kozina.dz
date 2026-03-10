@@ -107,5 +107,23 @@
     "authorLink": "https://instagram.com/noual_dz",
     "date": "2026-03-10"
   }
-
+  
 ]
+
+
+
+window.recipesData = recipesData;
+
+// دالة إنشاء بطاقة HTML
+window.createRecipeCard = function(recipe) {
+    return `
+        <div class="card" data-category="${recipe.category}">
+            <img src="${recipe.image}" alt="${recipe.title}" loading="lazy">
+            <h3>${recipe.title}</h3>
+            <p class="ingredients">${recipe.ingredients}</p>
+            <p class="author">${recipe.author}</p>
+            <span class="card-badge">${recipe.badge}</span>
+            <p class="description">${recipe.description}</p>
+        </div>
+    `;
+};
