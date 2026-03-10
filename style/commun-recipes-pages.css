@@ -1,0 +1,69 @@
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.cards-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:2rem;
+}
+
+/* تابلت */
+@media (max-width:1000px){
+.cards-grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+/* هاتف */
+@media (max-width:600px){
+.cards-grid{
+grid-template-columns:1fr;
+}
+}
+
+
+
+
+.load-more-container{
+text-align:center;
+margin-top:30px;
+}
+
+.load-more-btn{
+background:linear-gradient(135deg,#f39c12,#e67e22);
+color:white;
+border:none;
+padding:12px 28px;
+font-size:16px;
+border-radius:30px;
+cursor:pointer;
+font-family:'Tajawal',sans-serif;
+display:inline-flex;
+align-items:center;
+gap:10px;
+box-shadow:0 5px 15px rgba(0,0,0,.2);
+transition:.3s;
+}
+
+.load-more-btn:hover{
+transform:translateY(-3px);
+box-shadow:0 8px 20px rgba(0,0,0,.25);
+}
+
+.load-more-btn:active{
+transform:scale(.95);
+}
+
+/* الهاتف */
+@media (max-width:768px){
+.load-more-btn{
+width:100%;
+justify-content:center;
+}
+}
+
+
+
