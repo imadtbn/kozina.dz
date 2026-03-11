@@ -66,6 +66,10 @@ ${videoHtml}
     injectRecipeSchema(recipe);
 }
 
+    function showModal(recipe) {
+        createRecipeSchema(recipe);
+    }
+
 // إغلاق النافذة المنبثقة
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('recipeModal');
