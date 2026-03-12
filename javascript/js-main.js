@@ -62,13 +62,8 @@ ${videoHtml}
 `;
 
     modal.style.display = 'block';
-
-    injectRecipeSchema(recipe);
+    
 }
-
-    function showModal(recipe) {
-        createRecipeSchema(recipe);
-    }
 
 // إغلاق النافذة المنبثقة
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,16 +96,21 @@ async function loadAllData() {
         ]);
 
         // عرض البطاقات في كل حاوية (يكفي عرض أول 3 وصفات)
-        renderCards('algerien-cards', algerien.slice(0, 3));
-        renderCards('salads-cards', salads.slice(0, 3));
-        renderCards('diet-cards', diet.slice(0, 3));
-        renderCards('traditional-desserts-cards', traditional.slice(0, 3));
-        renderCards('modern-desserts-cards', modern.slice(0, 3));
+        renderCards('algerien-cards', sortRecipesByDate(algerien).slice(0, 3));
+        renderCards('salads-cards', sortRecipesByDate(salads).slice(0, 3));
+        renderCards('diet-cards', sortRecipesByDate(diet).slice(0, 3));
+        renderCards('traditional-desserts-cards', sortRecipesByDate(traditional).slice(0, 3));
+        renderCards('modern-desserts-cards', sortRecipesByDate(modern).slice(0, 3));
 
     } catch (error) {
         console.error('خطأ في تحميل البيانات:', error);
         // يمكن إظهار رسالة للمستخدم
     }
+}
+
+// ترتيب الوصفات حسب التاريخ (الأحدث أولاً)
+function sortRecipesByDate(recipes) {
+    return recipes.sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
 // بدء التحميل عند تحميل الصفحة
