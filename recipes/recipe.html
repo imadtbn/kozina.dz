@@ -1,39 +1,188 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title id="recipe-title">وصفة</title>
+    <title id="recipe-title">وصفة</title>
+    <!-- أيقونة الموقع -->
+    <link rel="icon" href="../icons/logo kozina.webp" alt="icon kozina">
+    <link rel="icon" href="https://github.com/imadtbn/kozina-dz/blob/main/icons/logo%20kozina.webp" type="image/webp">
 
-<meta id="meta-description" name="description" content="وصفة طبخ جزائرية">
+    <meta name="description"
+        content="تعرف على أشهر وصفات الطبخ الجزائري مثل الكسكس، الرشتة، الشوربة والطواجن مع المكونات وطريقة التحضير بالتفصيل.">
+    <meta id="meta-description" name="description" content="وصفة طبخ جزائرية">
 
-<link rel="stylesheet" href="../style/commun-recipes-pages.css">
+    <meta name="keywords" content="طبخ جزائري, وصفات جزائرية, كسكس جزائري, حلويات جزائرية">
+    <meta name="robots" content="index, follow">
+
+    <meta property="og:title" content="وصفات الطبخ الجزائري">
+    <meta property="og:description" content="أفضل وصفات الطبخ الجزائرية التقليدية والعصرية">
+    <meta property="og:image" content="https://imadtbn.github.io/kozina.dz/images/cover.jpg">
+    <meta property="og:type" content="website">
+
+    <meta name="google-site-verification" content="f5Xi4oFx0v5dN6iPZd9qCw-7vnc3vIbAeYF9jr4vwVM" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../style/algerien.css">
     <link rel="stylesheet" href="../style/style-main.css">
     <link rel="stylesheet" href="../style/commun-recipes-pages.css">
+
+    <style>
+        .recipe-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .recipe-figure img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .recipe-ingredients ul {
+            padding-right: 20px;
+            line-height: 1.9;
+        }
+
+        /* تحسين عرض الوصفة على الأجهزة المحمولة */
+        @media (max-width: 600px) {
+            .recipe-container {
+                padding: 10px;
+            }
+
+            .recipe-figure img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+
+    <script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Recipe",
+ "name": "تشيز كيك الجزائر",
+ "image": "https://site.com/images/cheesecake.jpg",
+ "author": {
+   "@type": "Person",
+   "name": "مريم"
+ },
+ "datePublished": "2025-03-06",
+ "description": "تشيز كيك بقاعدة بسكويت هشة...",
+ "recipeIngredient": [
+   "بسكويت دايجستيف",
+   "زبدة",
+   "جبن كريمي"
+ ],
+ "recipeInstructions": "اطحن البسكويت واخلطه مع الزبدة..."
+}
+    </script>
+
 </head>
 
 <body>
 
-<main class="recipe-page">
+    <!-- هيدر بسيط (بدون غلاف كبير) -->
+    <header class="sub-header">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="../icons/logo kozina.webp" alt="كوزينة DZ" class="logo-img" loading="lazy">
+                <h1>المطبخ الجزائري</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">الرئيسية</a></li>
+                <li><a href="algerien.html" class="active">طبخ جزائري</a></li>
+                <li><a href="salads.html">السلطات</a></li>
+                <li><a href="diet.html">حميات غذائية</a></li>
+                <li><a href="traditional-desserts.html">حلويات تقليدية</a></li>
+                <li><a href="modern-desserts.html">حلويات عصرية</a></li>
+                <li><a href="about.html">من نحن</a></li>
+                <li><a href="contact.html">اتصل بنا</a></li>
+            </ul>
+            <div class="burger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+        <div class="page-title">
+            <h2>الطبخ الجزائري: أصالة وحداثة</h2>
+        </div>
+    </header>
 
-<h1 id="title"></h1>
+    <!-- الشريط العلوي (محرك البحث + زر النشر) -->
+    <div class="top-bar">
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="ابحث عن وصفة / مقادير، عنوان، ناشر..." aria-label="بحث">
+            <i class="fas fa-search"></i>
+        </div>
+        <a href="https://forms.gle/DkJgvCXinp5bcagM7" target="_blank" class="btn-submit">
+            <i class="fas fa-utensils"></i> نشر- إضافة وصفة
+        </a>
+    </div>
 
-<img id="image" alt="">
+    <main class="recipe-page">
 
-<p id="description"></p>
+        <article class="recipe">
 
-<h2>المقادير</h2>
-<ul id="ingredients"></ul>
+            <header class="recipe-header">
+                <h1 id="title"></h1>
+            </header>
 
-<h2>طريقة التحضير</h2>
-<p id="method"></p>
+            <figure class="recipe-media">
+                <img id="image" alt="صورة الوصفة" loading="lazy" width="800" height="500">
+            </figure>
 
-</main>
+            <section class="recipe-description">
+                <p id="description"></p>
+            </section>
 
-<script src="../javascript/recipe-page.js"></script>
+            <section class="recipe-ingredients">
+                <h2>المقادير</h2>
+                <ul id="ingredients"></ul>
+            </section>
 
+            <section class="recipe-method">
+                <h2>طريقة التحضير</h2>
+                <ol id="method"></ol>
+            </section>
+
+        </article>
+
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col footer-brand"><img src="../icons/logo kozina.webp" alt="كوزينة DZ"
+                    class="footer-logo" loading="lazy">
+                <h3>مطبخ الجزائر</h3>
+                <p>موقع يقدم أشهى الوصفات الجزائرية التقليدية والعصرية، مع خيارات صحية تلائم جميع الأنظمة الغذائية.
+                </p>
+            </div>
+            <div class="footer-col">
+                <h3>روابط سريعة</h3>
+                <ul>
+                    <li><a href="../index.html">الرئيسية</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="contact.html">اتصل بنا</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>تواصل معنا</h3>
+                <div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                            class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-youtube"></i></a><a
+                        href="#"><i class="fab fa-pinterest"></i></a></div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2026 المطبخ الجزائري. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script src="../javascript/recipe-page.js"></script>
 </body>
+
 </html>
