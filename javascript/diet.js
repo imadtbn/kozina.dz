@@ -1,22 +1,6 @@
 // تحميل بيانات JSON وعرض البطاقات
 let recipesData = [];
 
-// زر المزيد من الوصفات
-let allRecipes = [];
-let visibleRecipes = 4;   // عدد الوصفات المعروضة أولاً
-const step = 4;           // عدد الوصفات التي تظهر كل مرة
-
-const container = document.getElementById("diet-cards");
-const loadMoreBtn = document.getElementById("loadMoreBtn");
-
-// حدث الضغط على زر المزيد
-loadMoreBtn.addEventListener("click", () => {
-
-    visibleRecipes += step;
-    renderRecipes();
-
-});
-
 async function loadRecipes() {
     try {
         const response = await fetch('../data/diet.json'); // تأكد من المسار الصحيح
