@@ -5,64 +5,44 @@ async function loadRecipes() {
     try {
         const response = await fetch('../data/salads.json'); // تأكد من المسار الصحيح
         recipesData = await response.json();
-
-        // ترتيب الوصفات حسب التاريخ (الأحدث أولاً)
-        recipesData.sort((a, b) => new Date(b.date) - new Date(a.date));
-
         renderCards('all');
-
     } catch (error) {
         console.error('خطأ في تحميل البيانات:', error);
+        // يمكن عرض رسالة للمستخدم
     }
 }
 
 function renderCards(filter) {
-
     const container = document.getElementById('salads-cards');
-    container.innerHTML = '';
+    container.innerHTML = ''; // تفريغ الحاوية
 
-    const filtered = filter === 'all'
-        ? recipesData
-        : recipesData.filter(r => r.category === filter);
+    const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
 
-    const visibleRecipes = filtered.slice(0, visibleCount);
-
-    visibleRecipes.forEach(recipe => {
-
+    filtered.forEach(recipe => {
         const card = document.createElement('div');
         card.className = 'card';
         card.dataset.id = recipe.id;
         card.dataset.category = recipe.category;
 
         card.innerHTML = `
-        <div class="card-image">
-            <img src="${recipe.image}" alt="${recipe.title}">
-            <span class="card-badge salads-${recipe.category}">${recipe.badge}</span>
-        </div>
+<div class="card-image">
+    <img src="${recipe.image}" alt="${recipe.title}">
+    <span class="card-badge algerien-${recipe.category}">${recipe.badge}</span>
+</div>
+<div class="card-content">
+    <h3>${recipe.title}</h3>
+    <p class="ingredients">مقادير: ${recipe.ingredients.join('، ')}</p>
+    <div class="card-footer">
+        <span class="date"><i class="far fa-calendar-alt"></i> ${recipe.date}</span>
+        <span class="author">نشر: ${recipe.author}</span>
+    </div>
+</div>
+`;
 
-        <div class="card-content">
-            <h3>${recipe.title}</h3>
-            <p class="ingredients">مقادير: ${recipe.ingredients.join('، ')}</p>
-
-            <div class="card-footer">
-                <span class="date"><i class="far fa-calendar-alt"></i> ${recipe.date}</span>
-                <span class="author">نشر: ${recipe.author}</span>
-            </div>
-        </div>
-        `;
-
+        // إضافة حدث النقر لفتح النافذة المنبثقة
         card.addEventListener('click', () => showModal(recipe));
-
         container.appendChild(card);
     });
-
-    // إخفاء زر المزيد إذا انتهت الوصفات
-    const loadBtn = document.getElementById('loadMoreBtn');
-    if (visibleCount >= filtered.length) {
-        loadBtn.style.display = "none";
-    } else {
-        loadBtn.style.display = "block";
-    }
 }
 
 function showModal(recipe) {
@@ -110,18 +90,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.add('active');
         renderCards(btn.dataset.filter);
     });
-});
-
-    // تفعيل زر "المزيد من الوصفات"
-    
-    document.getElementById("loadMoreBtn").addEventListener("click", () => {
-
-    visibleCount += step;
-
-    const activeFilter = document.querySelector(".filter-btn.active").dataset.filter;
-
-    renderCards(activeFilter);
-
 });
 
 // بدء التحميل
