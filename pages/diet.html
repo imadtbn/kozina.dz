@@ -160,65 +160,7 @@
         const container = document.getElementById("diet-cards");
         const loadMoreBtn = document.getElementById("loadMoreBtn");
 
-        // تحميل البيانات
-        async function loadDietRecipes() {
-            try {
 
-                const response = await fetch("../data/diet.json");
-                allRecipes = await response.json();
-
-                renderRecipes();
-
-            } catch (error) {
-                console.error("خطأ تحميل البيانات:", error);
-            }
-        }
-
-        // عرض الوصفات
-        function renderRecipes() {
-
-            const recipesToShow = allRecipes.slice(0, visibleRecipes);
-
-            container.innerHTML = "";
-
-            recipesToShow.forEach(recipe => {
-
-                const ingredientsText = Array.isArray(recipe.ingredients)
-                    ? recipe.ingredients.join("، ")
-                    : recipe.ingredients;
-
-                const card = document.createElement("div");
-                card.className = "card";
-
-                card.innerHTML = `
-            <div class="card-image">
-                <img src="${recipe.image}" alt="${recipe.title}" loading="lazy">
-                <span class="card-badge">${recipe.badge || ""}</span>
-            </div>
-
-            <div class="card-content">
-                <h3>${recipe.title}</h3>
-                <p class="ingredients">مقادير: ${ingredientsText}</p>
-
-                <div class="card-footer">
-                    <span class="date">
-                        <i class="far fa-calendar-alt"></i> ${recipe.date}
-                    </span>
-                    <span class="author">
-                        نشر: ${recipe.author}
-                    </span>
-                </div>
-            </div>
-        `;
-
-                container.appendChild(card);
-            });
-
-            // إخفاء الزر إذا انتهت الوصفات
-            if (visibleRecipes >= allRecipes.length) {
-                loadMoreBtn.style.display = "none";
-            }
-        }
 
         // حدث الضغط على زر المزيد
         loadMoreBtn.addEventListener("click", () => {
@@ -227,6 +169,8 @@
             renderRecipes();
 
         });
+
+  });
 
     </script>
     
