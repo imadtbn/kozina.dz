@@ -17,36 +17,52 @@ async function loadRecipes() {
 }
 
 function renderCards(filter) {
+
     const container = document.getElementById('salads-cards');
-    container.innerHTML = ''; // تفريغ الحاوية
+    container.innerHTML = '';
 
-    const filtered = filter === 'all' ? recipesData : recipesData.filter(r => r.category === filter);
+    const filtered = filter === 'all'
+        ? recipesData
+        : recipesData.filter(r => r.category === filter);
 
-    filtered.forEach(recipe => {
+    const visibleRecipes = filtered.slice(0, visibleCount);
+
+    visibleRecipes.forEach(recipe => {
+
         const card = document.createElement('div');
         card.className = 'card';
         card.dataset.id = recipe.id;
         card.dataset.category = recipe.category;
 
         card.innerHTML = `
-<div class="card-image">
-    <img src="${recipe.image}" alt="${recipe.title}">
-    <span class="card-badge algerien-${recipe.category}">${recipe.badge}</span>
-</div>
-<div class="card-content">
-    <h3>${recipe.title}</h3>
-    <p class="ingredients">مقادير: ${recipe.ingredients.join('، ')}</p>
-    <div class="card-footer">
-        <span class="date"><i class="far fa-calendar-alt"></i> ${recipe.date}</span>
-        <span class="author">نشر: ${recipe.author}</span>
-    </div>
-</div>
-`;
+        <div class="card-image">
+            <img src="${recipe.image}" alt="${recipe.title}">
+            <span class="card-badge salads-${recipe.category}">${recipe.badge}</span>
+        </div>
 
-        // إضافة حدث النقر لفتح النافذة المنبثقة
+        <div class="card-content">
+            <h3>${recipe.title}</h3>
+            <p class="ingredients">مقادير: ${recipe.ingredients.join('، ')}</p>
+
+            <div class="card-footer">
+                <span class="date"><i class="far fa-calendar-alt"></i> ${recipe.date}</span>
+                <span class="author">نشر: ${recipe.author}</span>
+            </div>
+        </div>
+        `;
+
         card.addEventListener('click', () => showModal(recipe));
+
         container.appendChild(card);
     });
+
+    // إخفاء زر المزيد إذا انتهت الوصفات
+    const loadBtn = document.getElementById('loadMoreBtn');
+    if (visibleCount >= filtered.length) {
+        loadBtn.style.display = "none";
+    } else {
+        loadBtn.style.display = "block";
+    }
 }
 
 function showModal(recipe) {
@@ -96,7 +112,17 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
 });
 
+    // تفعيل زر "المزيد من الوصفات"
+    
+    document.getElementById("loadMoreBtn").addEventListener("click", () => {
 
+    visibleCount += step;
+
+    const activeFilter = document.querySelector(".filter-btn.active").dataset.filter;
+
+    renderCards(activeFilter);
+
+});
 
 // بدء التحميل
 loadRecipes();
