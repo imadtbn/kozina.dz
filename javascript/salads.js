@@ -109,11 +109,19 @@ window.addEventListener('click', (e) => {
 // أزرار التصفية
 document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
+
+        // إعادة عدد الوصفات المعروضة
+        visibleCount = 4;
+
         renderCards(btn.dataset.filter);
     });
 });
+
+const loadBtn = document.getElementById('loadMoreBtn');
+if (!loadBtn) return;
 
     // تفعيل زر "المزيد من الوصفات"
     
