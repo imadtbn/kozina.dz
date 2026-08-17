@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "validate": "node scripts/validate-site.mjs"
+    "validate": "node scripts/validate-site.mjs",
+    "build:recipes": "python3 scripts/build-recipes.py"
   }
 }

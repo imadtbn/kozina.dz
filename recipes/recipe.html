@@ -38,14 +38,22 @@
     <article class="recipe">
       <header class="recipe-header"><h2 id="title">جاري تحميل الوصفة...</h2><p id="recipe-meta" class="recipe-meta"></p></header>
       <figure class="recipe-media"><img id="image" alt="صورة الوصفة" loading="lazy" width="800" height="500"></figure>
-      <section class="recipe-description"><p id="description"></p></section>
-      <section class="recipe-ingredients"><h2>المقادير</h2><ul id="ingredients"></ul></section>
-      <section class="recipe-method"><h2>طريقة التحضير</h2><ol id="method"></ol></section>
-      <section class="share-box" aria-labelledby="share-title"><h2 id="share-title">شارك الوصفة</h2><div class="share-actions"><button type="button" data-share="native">مشاركة</button><button type="button" data-share="whatsapp">واتساب</button><button type="button" data-share="facebook">فيسبوك</button><button type="button" data-share="telegram">تلغرام</button><button type="button" data-share="copy">نسخ الرابط</button></div></section>
+      <div class="recipe-layout">
+        <div class="recipe-primary">
+          <section class="recipe-description"><h2>عن الوصفة</h2><p id="description"></p></section>
+          <section class="recipe-method"><h2>طريقة التحضير</h2><ol id="method"></ol></section>
+          <div id="video" aria-label="فيديو الوصفة"></div>
+        </div>
+        <aside class="recipe-sidebar">
+          <section class="recipe-ingredients"><h2>المقادير</h2><ul id="ingredients"></ul></section>
+          <section class="share-box" aria-labelledby="share-title"><h2 id="share-title">شارك الوصفة</h2><div class="share-actions"><button type="button" data-share="native">مشاركة</button><button type="button" data-share="whatsapp">واتساب</button><button type="button" data-share="facebook">فيسبوك</button><button type="button" data-share="telegram">تلغرام</button><button type="button" data-share="copy">نسخ الرابط</button></div></section>
+        </aside>
+      </div>
     </article>
   </main>
   <footer><div class="footer-container"><div class="footer-col footer-brand"><img src="../icons/logo kozina.webp" alt="كوزينة DZ" class="footer-logo"><h3>مطبخ الجزائر</h3><p>موقع يقدم أشهى الوصفات الجزائرية التقليدية والعصرية، مع خيارات صحية تلائم جميع الأنظمة الغذائية.</p></div><div class="footer-col"><h3>روابط سريعة</h3><ul><li><a href="../index.html">الرئيسية</a></li><li><a href="../pages/about.html">من نحن</a></li><li><a href="../pages/contact.html">اتصل بنا</a></li><li><a href="../pages/privacy.html">سياسة الخصوصية</a></li></ul></div></div><div class="copyright"><p>© 2026 كوزينة DZ. جميع الحقوق محفوظة.</p></div></footer>
   <script src="../javascript/commun.js"></script>
+  <script src="../javascript/video-utils.js"></script>
   <script src="../javascript/recipe-page.js"></script>
   <script src="../javascript/share.js"></script>
 </body>

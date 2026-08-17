@@ -49,6 +49,25 @@ document.addEventListener('DOMContentLoaded', async function () {
       ingredients.appendChild(li);
     });
 
+    const videoBox = document.getElementById('video');
+    videoBox.replaceChildren();
+    if (recipe.video && window.KozinaVideo) {
+      const video = window.KozinaVideo.createEmbed(recipe.video, recipe.title);
+      if (video) {
+        videoBox.appendChild(video);
+      } else {
+        const fallback = document.createElement('p');
+        fallback.className = 'video-fallback';
+        const link = document.createElement('a');
+        link.href = recipe.video;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'مشاهدة الفيديو على المنصة الأصلية';
+        fallback.appendChild(link);
+        videoBox.appendChild(fallback);
+      }
+    }
+
     const method = document.getElementById('method');
     method.replaceChildren();
     const steps = Array.isArray(recipe.steps) && recipe.steps.length ? recipe.steps : [recipe.method];

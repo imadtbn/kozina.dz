@@ -31,7 +31,7 @@
 
   function createImage(src, alt, className) {
     const image = makeElement('img', className);
-    image.src = safeUrl(src, ['http:', 'https:']) || 'images/couscous.jpg';
+    image.src = safeUrl(src, ['http:', 'https:']) || (window.location.pathname.includes('/pages/') ? '../images/couscous.jpg' : 'images/couscous.jpg');
     image.alt = alt || 'صورة وصفة';
     image.loading = 'lazy';
     image.width = 640;
@@ -58,7 +58,7 @@
     card.dataset.search = normalizeText(recipeText(recipe));
     card.tabIndex = 0;
     card.setAttribute('role', 'button');
-    card.setAttribute('aria-label', `عرض وصفة ${recipe.title}`);
+    card.setAttribute('aria-label', `عرض ملخص وصفة ${recipe.title}`);
 
     const imageBox = makeElement('div', 'card-image');
     imageBox.appendChild(createImage(recipe.image, recipe.title));
@@ -93,64 +93,59 @@
     return card;
   }
 
+  function getRecipePageUrl(recipe) {
+    const relativePath = window.location.pathname.includes('/pages/')
+      ? `../recipes/${recipe.slug}.html`
+      : `recipes/${recipe.slug}.html`;
+    return new URL(relativePath, window.location.href).href;
+  }
+
   function renderModal(recipe, modal) {
     if (!modal) return;
     const body = modal.querySelector('.modal-body');
     if (!body) return;
     body.replaceChildren();
+    modal.setAttribute('aria-labelledby', 'modal-recipe-title');
 
-    const title = makeElement('h2', '', recipe.title);
-    body.appendChild(title);
-    body.appendChild(createImage(recipe.image, recipe.title));
-    body.appendChild(makeElement('p', '', `الوصف: ${recipe.description || ''}`));
+    const header = makeElement('div', 'modal-recipe-header');
+    header.appendChild(makeElement('span', 'modal-kicker', recipe.badge || 'وصفة جزائرية'));
+    header.appendChild(makeElement('h2', '', recipe.title));
+    header.lastChild.id = 'modal-recipe-title';
+    header.appendChild(makeElement('p', 'modal-meta', `نشر: ${recipe.author || 'كوزينة DZ'} · ${recipe.date || ''}`));
+    body.appendChild(header);
 
-    const ingredientTitle = makeElement('h3', '', 'المقادير');
-    body.appendChild(ingredientTitle);
-    const ingredientsList = makeElement('ul', 'ingredients-list');
-    (Array.isArray(recipe.ingredients) ? recipe.ingredients : [recipe.ingredients]).filter(Boolean).forEach(function (item) {
-      ingredientsList.appendChild(makeElement('li', '', item));
-    });
-    body.appendChild(ingredientsList);
+    const image = createImage(recipe.image, recipe.title, 'modal-recipe-image');
+    body.appendChild(image);
 
-    const methodTitle = makeElement('h3', '', 'طريقة التحضير');
-    body.appendChild(methodTitle);
-    const methodList = makeElement('ol', 'method-list');
-    const steps = Array.isArray(recipe.steps) && recipe.steps.length ? recipe.steps : [recipe.method];
-    steps.filter(Boolean).forEach(function (step) {
-      methodList.appendChild(makeElement('li', '', step));
-    });
-    body.appendChild(methodList);
-
-    if (recipe.video) {
-      const video = safeUrl(recipe.video, ['https:']);
-      if (video) {
-        const videoContainer = makeElement('div', 'video-container');
-        const iframe = document.createElement('iframe');
-        iframe.src = video;
-        iframe.width = '100%';
-        iframe.height = '280';
-        iframe.loading = 'lazy';
-        iframe.title = `فيديو طريقة تحضير ${recipe.title}`;
-        iframe.allowFullscreen = true;
-        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-        videoContainer.appendChild(iframe);
-        body.appendChild(videoContainer);
-      }
+    const description = String(recipe.description || '').trim();
+    if (description) {
+      body.appendChild(makeElement('p', 'modal-summary', description.length > 190 ? `${description.slice(0, 187)}...` : description));
     }
 
-    const info = makeElement('div', 'author-info');
-    info.appendChild(makeElement('p', '', `نشر: ${recipe.author || 'كوزينة DZ'}`));
-    info.appendChild(makeElement('p', '', `تاريخ النشر: ${recipe.date || ''}`));
-    if (recipe.slug) {
-      const link = document.createElement('a');
-      const recipePath = window.location.pathname.includes('/pages/') ? `../recipes/${recipe.slug}.html` : `recipes/${recipe.slug}.html`;
-      link.href = new URL(recipePath, window.location.href).href;
-      link.textContent = 'فتح صفحة الوصفة ومشاركتها';
-      link.target = '_blank';
-      link.rel = 'noopener noreferrer';
-      info.appendChild(link);
+    const ingredients = Array.isArray(recipe.ingredients) ? recipe.ingredients.filter(Boolean) : [recipe.ingredients].filter(Boolean);
+    if (ingredients.length) {
+      const ingredientBox = makeElement('section', 'modal-ingredients');
+      ingredientBox.appendChild(makeElement('h3', '', 'أهم المقادير'));
+      const list = makeElement('ul', 'ingredients-list');
+      ingredients.slice(0, 6).forEach((item) => list.appendChild(makeElement('li', '', item)));
+      ingredientBox.appendChild(list);
+      if (ingredients.length > 6) ingredientBox.appendChild(makeElement('p', 'modal-more-note', `و ${ingredients.length - 6} مقادير أخرى في الصفحة الكاملة`));
+      body.appendChild(ingredientBox);
     }
-    body.appendChild(info);
+
+    const actions = makeElement('div', 'modal-actions');
+    const moreLink = document.createElement('a');
+    moreLink.className = 'more-recipe-btn';
+    moreLink.href = getRecipePageUrl(recipe);
+    moreLink.target = '_blank';
+    moreLink.rel = 'noopener noreferrer';
+    moreLink.textContent = 'المزيد من الوصفة والفيديو';
+    actions.appendChild(moreLink);
+    const closeLink = makeElement('button', 'modal-secondary-btn', 'متابعة التصفح');
+    closeLink.type = 'button';
+    closeLink.addEventListener('click', () => modal.querySelector('.close-modal')?.click());
+    actions.appendChild(closeLink);
+    body.appendChild(actions);
   }
 
   window.KozinaRecipeUI = {
