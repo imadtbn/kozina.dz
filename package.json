@@ -1,0 +1,9 @@
+{
+  "name": "kozina-dz-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-site.mjs"
+  }
+}

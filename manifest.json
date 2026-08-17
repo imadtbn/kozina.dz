@@ -1,7 +1,10 @@
 {
-  "name": "كوزينة DZ",
-  "short_name": "كوزينة",
-  "start_url": "https://imadtbn.github.io/kozina.dz/",
+  "name": "كوزينة DZ - وصفات الطبخ الجزائري",
+  "short_name": "كوزينة DZ",
+  "lang": "ar-DZ",
+  "dir": "rtl",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#fef9f0",
   "theme_color": "#e67e22",
@@ -10,12 +13,14 @@
     {
       "src": "icons/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "icons/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

@@ -796,3 +796,114 @@ header {
         transform: scale(1);
     }
 }
+
+
+/* تحسينات الإنقاذ: لا تغيّر الهوية البصرية، بل تضبط التفاعل والحالات الجديدة */
+.burger {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+}
+
+.card:focus-visible,
+.nav-links a:focus-visible,
+button:focus-visible,
+a:focus-visible,
+.search-container input:focus-visible {
+    outline: 3px solid #27ae60;
+    outline-offset: 3px;
+}
+
+.card[role="button"] {
+    cursor: pointer;
+}
+
+.modal[hidden],
+.empty-state[hidden],
+.install-btn[hidden] {
+    display: none !important;
+}
+
+.modal-open {
+    overflow: hidden;
+}
+
+.close-modal {
+    border: 0;
+    background: transparent;
+    font-family: inherit;
+}
+
+.empty-state {
+    padding: 2rem 5%;
+    text-align: center;
+    color: #7f8c8d;
+    font-weight: 700;
+}
+
+.share-box {
+    margin-top: 2rem;
+    padding: 1.25rem;
+    border-top: 2px solid #f1f1f1;
+}
+
+.share-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .65rem;
+}
+
+.share-actions button {
+    border: 0;
+    border-radius: 20px;
+    padding: .65rem 1rem;
+    background: #e67e22;
+    color: #fff;
+    font-family: inherit;
+    cursor: pointer;
+    transition: transform .2s ease, background-color .2s ease;
+}
+
+.share-actions button:hover {
+    background: #d35400;
+    transform: translateY(-2px);
+}
+
+.recipe-meta,
+.back-link {
+    color: #7f8c8d;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.method-list {
+    padding-right: 1.25rem;
+}
+
+.method-list li {
+    margin-bottom: .75rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+.load-more-btn[hidden] {
+    display: none !important;
+}

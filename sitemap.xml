@@ -1,69 +1,213 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <url>
-    <loc>https://imadtbn.github.io/kozina.dz/</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
   <url>
-    <loc>https://imadtbn.github.io/kozina.dz/index.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <loc>https://imadtbn.github.io/kozina.dz/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://imadtbn.github.io/kozina.dz/pages/algerien.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://imadtbn.github.io/kozina.dz/pages/salads.html</loc> 
-    <lastmod>2026-03-08</lastmod>
+    <loc>https://imadtbn.github.io/kozina.dz/pages/salads.html</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://imadtbn.github.io/kozina.dz/pages/diet.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://imadtbn.github.io/kozina.dz/pages/traditional-desserts.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://imadtbn.github.io/kozina.dz/pages/modern-desserts.html</loc>
-    <lastmod>2026-03-08</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://imadtbn.github.io/kozina.dzrecipes/recipe.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://imadtbn.github.io/kozina.dz/pages/about.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://imadtbn.github.io/kozina.dz/pages/contact.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://imadtbn.github.io/kozina.dz/pages/privacy-policy.html</loc>
-    <lastmod>2026-03-08</lastmod>
+    <loc>https://imadtbn.github.io/kozina.dz/pages/privacy.html</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/ghribia-amandes.html</loc>
+    <lastmod>2026-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/cheesecake-algerien.html</loc>
+    <lastmod>2026-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/couscous-algerien-aux-legumes.html</loc>
+    <lastmod>2025-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/baklawa-algerienne.html</loc>
+    <lastmod>2025-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/qalb-el-louz.html</loc>
+    <lastmod>2025-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/makrout-amandes.html</loc>
+    <lastmod>2025-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/briouates-amandes.html</loc>
+    <lastmod>2025-03-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/chakhchoukha-au-poulet.html</loc>
+    <lastmod>2025-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/macarons-amandes-safran.html</loc>
+    <lastmod>2025-03-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/berkoukes-a-la-viande.html</loc>
+    <lastmod>2025-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/red-velvet-algerienne.html</loc>
+    <lastmod>2025-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/mousse-chocolat-orange.html</loc>
+    <lastmod>2025-03-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/creme-caramel-cafe.html</loc>
+    <lastmod>2025-03-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/tarte-fruits-tropicaux.html</loc>
+    <lastmod>2025-03-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/salade-quinoa-legumes-diet.html</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/salade-quinoa-legumes.html</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/soupe-lentilles-legumes-diet.html</loc>
+    <lastmod>2024-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/soupe-lentilles-legumes.html</loc>
+    <lastmod>2024-03-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/gratin-viande-fromage.html</loc>
+    <lastmod>2024-03-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/gratin-viande-fromage-salade.html</loc>
+    <lastmod>2024-03-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/poulet-grille-aux-legumes.html</loc>
+    <lastmod>2024-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/poulet-grille-aux-legumes-salade.html</loc>
+    <lastmod>2024-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/puree-pommes-de-terre.html</loc>
+    <lastmod>2024-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/puree-pommes-de-terre-salade.html</loc>
+    <lastmod>2024-03-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/cocktail-dattes-fruits-secs.html</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://imadtbn.github.io/kozina.dz/recipes/cocktail-dattes-fruits-secs-salade.html</loc>
+    <lastmod>2024-03-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

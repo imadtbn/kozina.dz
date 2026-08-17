@@ -1,219 +1,96 @@
-// js-main.js
-// دالة لعرض البطاقات في حاوية محددة
-function renderCards(containerId, recipes) {
-    const container = document.getElementById(containerId);
-    if (!container) return;
-    container.innerHTML = '';
+document.addEventListener('DOMContentLoaded', async function () {
+  'use strict';
+  const ui = window.KozinaRecipeUI;
+  if (!ui) return;
 
-    recipes.forEach(recipe => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.dataset.id = recipe.id;
+  const sections = [
+    ['algerien-cards', 'data/algerien.json'],
+    ['salads-cards', 'data/salads.json'],
+    ['diet-cards', 'data/diet.json'],
+    ['traditional-desserts-cards', 'data/traditional-desserts.json'],
+    ['modern-desserts-cards', 'data/modern-desserts.json'],
+  ];
+  const modal = document.getElementById('recipeModal');
+  const closeButton = modal?.querySelector('.close-modal');
+  const searchInput = document.getElementById('search-input');
+  let allRecipes = [];
 
-        // تحضير نص المكونات (مصفوفة أو نص)
-        const ingredientsText = Array.isArray(recipe.ingredients)
-            ? recipe.ingredients.join('، ')
-            : recipe.ingredients;
-
-        card.innerHTML = `
-            <div class="card-image">
-                <img src="${recipe.image}" alt="${recipe.title}" loading="lazy">
-                <span class="card-badge">${recipe.badge || ''}</span>
-            </div>
-            <div class="card-content">
-                <h3>${recipe.title}</h3>
-                <p class="ingredients">مقادير: ${ingredientsText}</p>
-                <div class="card-footer">
-                    <span class="date"><i class="far fa-calendar-alt"></i> ${recipe.date}</span>
-                    <span class="author">نشر: ${recipe.author}</span>
-                </div>
-            </div>
-        `;
-
-        // إضافة حدث النقر لفتح النافذة المنبثقة
-        card.addEventListener('click', () => showModal(recipe));
-        container.appendChild(card);
-    });
-}
-
-// دالة عرض النافذة المنبثقة
-function showModal(recipe) {
-    const modal = document.getElementById('recipeModal');
-    const modalBody = modal.querySelector('.modal-body');
-    const videoHtml = recipe.video ? `
-<div class="video-container">
-<iframe width="100%" height="280" src="${recipe.video}" frameborder="0" allowfullscreen></iframe>
-</div>
-` : '';
-
-    modalBody.innerHTML = `
-<h2>${recipe.title}</h2>
-<img src="${recipe.image}" alt="${recipe.title}" style="max-width:100%; border-radius:8px;">
-<p><strong>الوصف:</strong> ${recipe.description}</p>
-<p><strong>المقادير:</strong> ${recipe.ingredients}</p>
-<p><strong>طريقة التحضير:</strong> ${recipe.method}</p>
-
-${videoHtml}
-<div class="author-info">
-<p><strong>نشر:</strong> ${recipe.author}</p>
-<p><strong>تاريخ النشر:</strong> ${recipe.date}</p>
-<p><strong>رابط التواصل:</strong> <a href="${recipe.authorLink}" target="_blank">${recipe.authorLink}</a></p>
-</div>
-`;
-
+  function openModal(recipe) {
+    if (!modal) return;
+    ui.renderModal(recipe, modal);
+    modal.hidden = false;
     modal.style.display = 'block';
-    
-}
+    document.body.classList.add('modal-open');
+    closeButton?.focus();
+  }
 
-// إغلاق النافذة المنبثقة
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('recipeModal');
-    const closeBtn = document.querySelector('.close-modal');
+  function closeModal() {
+    if (!modal) return;
+    modal.hidden = true;
+    modal.style.display = 'none';
+    document.body.classList.remove('modal-open');
+  }
 
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-    }
-
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
+  function render(query) {
+    const normalized = ui.normalizeText(query);
+    sections.forEach(function ([containerId]) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      container.replaceChildren();
+      allRecipes.filter(function (recipe) {
+        return recipe.sectionId === containerId && (!normalized || ui.normalizeText([
+          recipe.title,
+          recipe.description,
+          recipe.author,
+          recipe.badge,
+          ...(Array.isArray(recipe.ingredients) ? recipe.ingredients : [recipe.ingredients]),
+        ].join(' ')).includes(normalized));
+      }).slice(0, 3).forEach(function (recipe) {
+        container.appendChild(ui.createCard(recipe, { onOpen: openModal }));
+      });
     });
+  }
+
+  try {
+    const results = await Promise.all(sections.map(async function ([sectionId, file]) {
+      const response = await fetch(file);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const recipes = await response.json();
+      return recipes.map((recipe) => ({ ...recipe, sectionId }));
+    }));
+    allRecipes = results.flat();
+    render('');
+  } catch (error) {
+    console.error('خطأ في تحميل الوصفات:', error);
+    document.querySelectorAll('.cards-grid').forEach(function (grid) {
+      grid.innerHTML = '<p class="empty-state">تعذر تحميل الوصفات حالياً. حاول تحديث الصفحة.</p>';
+    });
+  }
+
+  searchInput?.addEventListener('input', function (event) {
+    render(event.target.value);
+  });
+
+  closeButton?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', function (event) {
+    if (event.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape' && modal && !modal.hidden) closeModal();
+  });
+
+  const installButton = document.getElementById('installBtn');
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', function (event) {
+    event.preventDefault();
+    deferredPrompt = event;
+    if (installButton) installButton.hidden = false;
+  });
+  installButton?.addEventListener('click', async function () {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installButton.hidden = true;
+  });
 });
-
-// تحميل البيانات من ملفات JSON
-async function loadAllData() {
-    try {
-        // تحميل كل ملف JSON على حدة
-        const [algerien, salads, diet, traditional, modern] = await Promise.all([
-            fetch('data/algerien.json').then(res => res.json()),
-            fetch('data/salads.json').then(res => res.json()),
-            fetch('data/diet.json').then(res => res.json()),
-            fetch('data/traditional-desserts.json').then(res => res.json()),
-            fetch('data/modern-desserts.json').then(res => res.json())
-        ]);
-
-        // عرض البطاقات في كل حاوية (يكفي عرض أول 3 وصفات)
-        renderCards('algerien-cards', sortRecipesByDate(algerien).slice(0, 3));
-        renderCards('salads-cards', sortRecipesByDate(salads).slice(0, 3));
-        renderCards('diet-cards', sortRecipesByDate(diet).slice(0, 3));
-        renderCards('traditional-desserts-cards', sortRecipesByDate(traditional).slice(0, 3));
-        renderCards('modern-desserts-cards', sortRecipesByDate(modern).slice(0, 3));
-
-    } catch (error) {
-        console.error('خطأ في تحميل البيانات:', error);
-        // يمكن إظهار رسالة للمستخدم
-    }
-}
-
-// ترتيب الوصفات حسب التاريخ (الأحدث أولاً)
-function sortRecipesByDate(recipes) {
-    return recipes.sort((a, b) => new Date(b.date) - new Date(a.date));
-}
-
-// بدء التحميل عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', loadAllData);
-
-// وظيفة البحث المباشر
-// وظيفة البحث المباشر (موسع ليشمل العنوان، المكونات، الناشر، الشارة)
-document.getElementById('search-input').addEventListener('input', function (e) {
-    const query = e.target.value.trim().toLowerCase();
-    const cards = document.querySelectorAll('.card');
-
-    cards.forEach(card => {
-        // استخراج النصوص من العناصر المختلفة
-        const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-        const ingredients = card.querySelector('.ingredients')?.textContent.toLowerCase() || '';
-        const author = card.querySelector('.author')?.textContent.toLowerCase() || '';
-        const badge = card.querySelector('.card-badge')?.textContent.toLowerCase() || '';
-        const description = card.querySelector('.description')?.textContent.toLowerCase() || '';
-
-        // دمج جميع النصوص للبحث
-        const allText = `${title} ${ingredients} ${author} ${badge}  ${description}`;
-
-        if (allText.includes(query)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-});
-
-// قائمة البرجر للشاشات الصغيرة
-const burger = document.querySelector('.burger');
-const navLinks = document.querySelector('.nav-links');
-
-if (burger && navLinks) {
-    burger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        // اختياري: تغيير أيقونة البرجر
-        const icon = burger.querySelector('i');
-        if (icon.classList.contains('fa-bars')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
-}
-
-// زر التثبيث APW
-
-let deferredPrompt;
-
-window.addEventListener("beforeinstallprompt", (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-
-    const installBtn = document.getElementById("installBtn");
-    installBtn.style.display = "inline-flex";
-
-    installBtn.addEventListener("click", () => {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(() => {
-            deferredPrompt = null;
-        });
-    });
-});
-
-
-//دالة توليد Schema للوصفة
-function injectRecipeSchema(recipe) {
-    // إزالة أي schema سابق
-    const oldSchema = document.getElementById("recipe-schema");
-    if (oldSchema) oldSchema.remove();
-
-    const schema = {
-        "@context": "https://schema.org",
-        "@type": "Recipe",
-        "name": recipe.title,
-        "image": recipe.image,
-        "author": {
-            "@type": "Person",
-            "name": recipe.author
-        },
-        "datePublished": recipe.date,
-        "description": recipe.description,
-        "recipeCategory": recipe.category || "",
-        "recipeIngredient": Array.isArray(recipe.ingredients)
-            ? recipe.ingredients
-            : recipe.ingredients.split("،"),
-        "recipeInstructions": recipe.method
-            .split(/\d+\./)
-            .filter(step => step.trim() !== "")
-            .map(step => ({
-                "@type": "HowToStep",
-                "text": step.trim()
-            }))
-    };
-
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.id = "recipe-schema";
-    script.textContent = JSON.stringify(schema, null, 2);
-
-    document.head.appendChild(script);
-}

@@ -1,92 +1,78 @@
-const params = new URLSearchParams(window.location.search);
-const slug = params.get("slug");
+document.addEventListener('DOMContentLoaded', async function () {
+  'use strict';
+  const slug = new URLSearchParams(window.location.search).get('slug');
+  const files = [
+    '../data/algerien.json',
+    '../data/salads.json',
+    '../data/diet.json',
+    '../data/traditional-desserts.json',
+    '../data/modern-desserts.json',
+  ];
 
-async function loadRecipe() {
+  if (!slug) {
+    document.getElementById('title').textContent = 'لم يتم تحديد الوصفة';
+    return;
+  }
 
-const files = [
-"../data/algerien.json",
-"../data/salads.json",
-"../data/diet.json",
-"../data/traditional-desserts.json",
-"../data/modern-desserts.json"
-];
+  try {
+    const results = await Promise.all(files.map(async (file) => {
+      const response = await fetch(file);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    }));
+    const recipe = results.flat().find((item) => item.slug === slug);
+    if (!recipe) throw new Error('Recipe not found');
+    renderRecipe(recipe);
+    addSchema(recipe);
+  } catch (error) {
+    console.error('تعذر تحميل الوصفة:', error);
+    document.getElementById('title').textContent = 'تعذر العثور على الوصفة';
+    document.getElementById('description').textContent = 'تحقق من الرابط أو عد إلى الصفحة الرئيسية.';
+  }
 
-let recipes = [];
+  function renderRecipe(recipe) {
+    document.title = `${recipe.title} | كوزينة DZ`;
+    document.getElementById('meta-description').content = recipe.description || '';
+    document.getElementById('title').textContent = recipe.title;
+    document.getElementById('description').textContent = recipe.description || '';
+    document.getElementById('recipe-meta').textContent = `نشر: ${recipe.author || 'كوزينة DZ'} · ${recipe.date || ''}`;
 
-for (const file of files) {
+    const image = document.getElementById('image');
+    image.src = recipe.image;
+    image.alt = recipe.title;
 
-const res = await fetch(file);
-const data = await res.json();
+    const ingredients = document.getElementById('ingredients');
+    ingredients.replaceChildren();
+    (Array.isArray(recipe.ingredients) ? recipe.ingredients : [recipe.ingredients]).filter(Boolean).forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      ingredients.appendChild(li);
+    });
 
-recipes = recipes.concat(data);
+    const method = document.getElementById('method');
+    method.replaceChildren();
+    const steps = Array.isArray(recipe.steps) && recipe.steps.length ? recipe.steps : [recipe.method];
+    steps.filter(Boolean).forEach((item) => {
+      const li = document.createElement('li');
+      li.textContent = item;
+      method.appendChild(li);
+    });
+  }
 
-}
-
-const recipe = recipes.find(r => r.slug === slug);
-
-if (!recipe) return;
-
-renderRecipe(recipe);
-createRecipeSchema(recipe);
-
-}
-
-function renderRecipe(recipe){
-
-document.getElementById("title").textContent = recipe.title;
-
-document.getElementById("image").src = recipe.image;
-
-document.getElementById("image").alt = recipe.title;
-
-document.getElementById("description").textContent = recipe.description;
-
-document.getElementById("method").textContent = recipe.method;
-
-const ul = document.getElementById("ingredients");
-
-recipe.ingredients.forEach(i=>{
-const li=document.createElement("li");
-li.textContent=i;
-ul.appendChild(li);
+  function addSchema(recipe) {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Recipe',
+      name: recipe.title,
+      image: [recipe.image],
+      author: { '@type': 'Person', name: recipe.author || 'كوزينة DZ' },
+      datePublished: recipe.date,
+      description: recipe.description,
+      recipeIngredient: recipe.ingredients,
+      recipeInstructions: (recipe.steps || [recipe.method]).filter(Boolean).map((text) => ({ '@type': 'HowToStep', text })),
+    });
+    document.head.appendChild(script);
+  }
 });
-
-document.title = recipe.title + " | كوزينة DZ";
-
-document.getElementById("meta-description").content = recipe.description;
-
-}
-
-function createRecipeSchema(recipe){
-
-const schema = {
-"@context":"https://schema.org",
-"@type":"Recipe",
-"name":recipe.title,
-"image":recipe.image,
-"description":recipe.description,
-"author":{
-"@type":"Person",
-"name":recipe.author
-},
-"datePublished":recipe.date,
-"recipeIngredient":recipe.ingredients,
-"recipeInstructions":[
-{
-"@type":"HowToStep",
-"text":recipe.method
-}
-]
-};
-
-const script=document.createElement("script");
-
-script.type="application/ld+json";
-
-script.textContent=JSON.stringify(schema);
-
-document.head.appendChild(script);
-
-}
-
-loadRecipe();
