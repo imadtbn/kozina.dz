@@ -1,38 +1,35 @@
-(function () {
-  'use strict';
+// adsData.js
 
-  function loadAd(ad) {
-    if (ad.dataset.adsLoaded === 'true') return;
-    ad.dataset.adsLoaded = 'true';
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (error) {
-      ad.dataset.adsLoaded = 'error';
-      console.warn('تعذر تحميل إعلان AdSense:', error);
-    }
-  }
-
-  function observeAds() {
-    const ads = Array.from(document.querySelectorAll('.adsbygoogle'));
-    if (!ads.length) return;
-    if (!('IntersectionObserver' in window)) {
-      ads.forEach(loadAd);
-      return;
-    }
-    const observer = new IntersectionObserver(function (entries, instance) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          loadAd(entry.target);
-          instance.unobserve(entry.target);
+document.addEventListener("DOMContentLoaded", function () {
+    // حساب عدد إعلانات AdSense المتوفرة في الصفحة
+    var adBlocks = document.querySelectorAll('ins.adsbygoogle');
+    adBlocks.forEach(function (adBlock) {
+        // التحقق من أن الإعلان لم يتم دفعه أو تحميله مسبقاً
+        if (!adBlock.hasAttribute('data-adsbygoogle-status')) {
+            try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+                console.error("AdSense push error: ", e);
+            }
         }
-      });
-    }, { rootMargin: '500px 0px' });
-    ads.forEach((ad) => observer.observe(ad));
-  }
+    });
+});
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', observeAds, { once: true });
-  } else {
-    observeAds();
-  }
-})();
+// الانتظار حتى يتم تحميل الصفحة بالكامل
+window.addEventListener('load', function () {
+    // تأخير بسيط لضمان استقرار وسم الـ DOM وتجنب تضارب الـ Service Worker
+    setTimeout(function () {
+        var adBlocks = document.querySelectorAll('ins.adsbygoogle');
+        adBlocks.forEach(function (adBlock) {
+            // التحقق بدقة: إذا لم يكن الإعلان قد تم معالجته من قبل جوجل ولم يتم عمل push له
+            if (!adBlock.hasAttribute('data-adsbygoogle-status') && adBlock.children.length === 0) {
+                try {
+                    (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    console.log('تم تحميل وحدة إعلانية بنجاح.');
+                } catch (e) {
+                    console.error('خطأ أثناء تحميل الإعلان:', e);
+                }
+            }
+        });
+    }, 2600); // تأخير نصف ثانية
+});
