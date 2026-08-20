@@ -1,0 +1,98 @@
+/* نظام إعلانات كوزينة DZ: مساحة متوقعة، حدود خفيفة، وعدم إزعاج القراءة */
+:root {
+    --ads-max-width: 1180px;
+    --ads-gap: clamp(1.5rem, 3vw, 2.75rem);
+    --ads-border: rgba(230, 126, 34, 0.12);
+    --ads-surface: rgba(255, 255, 255, 0.72);
+    --ads-label: #8a6a4a;
+}
+
+.ad-slot {
+    width: min(calc(100% - 2rem), var(--ads-max-width));
+    margin: var(--ads-gap) auto;
+    padding: 0.7rem clamp(0.65rem, 2vw, 1.25rem);
+    border: 1px solid var(--ads-border);
+    border-radius: 16px;
+    background: var(--ads-surface);
+    text-align: center;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 260ms ease, transform 260ms ease, margin 200ms ease, padding 200ms ease;
+    contain: layout paint style;
+}
+
+.ad-slot::before {
+    content: "إعلان";
+    display: block;
+    margin-bottom: 0.35rem;
+    color: var(--ads-label);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.ad-slot.is-ready,
+.ad-slot.is-loading {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ad-slot.is-ready {
+    min-height: 90px;
+}
+
+.ad-slot--in-feed {
+    margin-block: clamp(1.75rem, 4vw, 3.5rem);
+}
+
+.ad-slot--in-article {
+    width: 100%;
+    margin: clamp(1.75rem, 4vw, 3rem) 0;
+    padding-inline: 0;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.56);
+}
+
+.ad-slot--multiplex {
+    margin-top: clamp(2rem, 5vw, 4rem);
+}
+
+.ad-slot ins.adsbygoogle {
+    display: block;
+    width: 100%;
+    min-height: 50px;
+}
+
+.ad-slot.is-empty {
+    min-height: 0;
+    margin-block: 0;
+    padding-block: 0;
+    border: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .ad-slot {
+        width: min(calc(100% - 1rem), var(--ads-max-width));
+        margin-block: 1.35rem;
+        padding: 0.5rem 0.4rem;
+        border-radius: 12px;
+    }
+
+    .ad-slot.is-ready {
+        min-height: 64px;
+    }
+
+    .ad-slot--in-article {
+        margin-block: 1.65rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ad-slot {
+        transition: none;
+        transform: none;
+    }
+}

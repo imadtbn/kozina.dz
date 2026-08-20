@@ -1,10 +1,12 @@
-const CACHE_NAME = 'kozina-dz-v2';
+const CACHE_NAME = 'kozina-dz-v3';
 const BASE_PATH = new URL('./', self.registration.scope).pathname;
 const APP_SHELL = [
   BASE_PATH,
   `${BASE_PATH}index.html`,
   `${BASE_PATH}style/style-main.css`,
+  `${BASE_PATH}style/ads.css`,
   `${BASE_PATH}javascript/js-main.js`,
+  `${BASE_PATH}javascript/ads.js`,
   `${BASE_PATH}manifest.json`,
   `${BASE_PATH}icons/icon-192.png`,
   `${BASE_PATH}icons/icon-512.png`,
